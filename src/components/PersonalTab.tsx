@@ -33,7 +33,7 @@ export default function PersonalTab() {
         </div>
       </div>
 
-      <div className="bg-neutral-900 relative z-10">
+      <div className="bg-black relative z-10">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
           <div className="max-w-3xl space-y-6 text-white/70 text-lg leading-relaxed mb-16">
             <p>

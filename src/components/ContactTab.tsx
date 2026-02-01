@@ -34,7 +34,7 @@ export default function ContactTab() {
         </div>
       </div>
 
-      <div className="bg-neutral-900 relative z-10">
+      <div className="bg-black relative z-10">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
           <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
             <a

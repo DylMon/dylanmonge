@@ -33,7 +33,7 @@ export default function ExperienceTab() {
         </div>
       </div>
 
-      <div className="bg-neutral-900 relative z-10">
+      <div className="bg-black relative z-10">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
           <div className="mb-20">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Work History</h3>
@@ -115,7 +115,7 @@ export default function ExperienceTab() {
             </div>
           </div>
 
-          <div className="mb-20">
+          <div id="featured-projects" className="mb-20">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Featured Projects</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:bg-white/10 transition-all duration-300 group">
@@ -192,7 +192,7 @@ export default function ExperienceTab() {
             </div>
           </div>
 
-          <div className="mb-20">
+          <div id="research-publications" className="mb-20">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Research & Publications</h3>
             <div className="space-y-6">
               <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
