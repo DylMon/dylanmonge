@@ -4,6 +4,7 @@ import { Tab } from '../types';
 interface HeaderProps {
   activeTab: Tab;
   setActiveTab: (tab: Tab) => void;
+  scrolled: boolean;
 }
 
 const tabs: { key: Tab; label: string }[] = [
@@ -13,11 +14,13 @@ const tabs: { key: Tab; label: string }[] = [
   { key: 'contact', label: 'Contact' },
 ];
 
-export default function Header({ activeTab, setActiveTab }: HeaderProps) {
+export default function Header({ activeTab, setActiveTab, scrolled }: HeaderProps) {
   const [hoveredTab, setHoveredTab] = useState<Tab | null>(null);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-neutral-900/95 backdrop-blur-sm' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-center h-16">
           <nav className="flex gap-4 sm:gap-8 md:gap-12">

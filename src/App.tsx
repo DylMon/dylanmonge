@@ -28,11 +28,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <div className="fixed inset-0 z-0">
+      <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
         <ParticleField scrollY={scrollY} />
       </div>
 
-      <Header activeTab={activeTab} setActiveTab={handleTabChange} />
+      <Header activeTab={activeTab} setActiveTab={handleTabChange} scrolled={scrollY >= window.innerHeight - 64} />
 
       <main>
         {activeTab === 'services' && (
