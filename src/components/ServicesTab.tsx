@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Code2, Palette, Brain, Lightbulb, Box, Mail, Linkedin, Github } from 'lucide-react';
+import { Code2, Palette, Brain, Lightbulb } from 'lucide-react';
 
 interface ServicesTabProps {
   onContactClick: () => void;
@@ -9,21 +9,9 @@ export default function ServicesTab({ onContactClick }: ServicesTabProps) {
   const [visibleServices, setVisibleServices] = useState<Set<number>>(new Set());
   const [heroVisible, setHeroVisible] = useState(false);
   const serviceRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const heroRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (heroRef.current) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setHeroVisible(true);
-          }
-        },
-        { threshold: 0.3 }
-      );
-      observer.observe(heroRef.current);
-      return () => observer.disconnect();
-    }
+    setHeroVisible(true);
   }, []);
 
   useEffect(() => {
@@ -51,56 +39,41 @@ export default function ServicesTab({ onContactClick }: ServicesTabProps) {
 
   return (
     <div>
-      <div ref={heroRef} className="h-screen flex items-center justify-center bg-black sticky top-0">
-        <div className="text-center">
+      <div className="h-screen" />
+      <div className="fixed inset-0 flex items-center justify-center z-[1] pointer-events-none">
+        <div className="text-center pointer-events-auto">
           <div className="relative inline-block mb-8">
-            <h1 className="font-semibold tracking-tight" style={{ fontSize: 'clamp(2.5rem, 10vw, 6rem)' }}>Dylan Monge</h1>
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 h-0.5 bg-white transition-all duration-700 ease-out"
+            <h1
+              className="font-semibold tracking-tight"
+              style={{
+                fontSize: 'clamp(2.5rem, 10vw, 6rem)',
+                opacity: heroVisible ? 1 : 0,
+                transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'opacity 0.6s ease, transform 0.6s ease',
+              }}
+            >Dylan Monge</h1>
+            <div className="absolute bottom-1 left-[23%] right-[23%] h-0.5 bg-white transition-all duration-700 ease-out origin-center"
                  style={{
-                   width: heroVisible ? '80%' : '0%',
+                   transform: heroVisible ? 'scaleX(1)' : 'scaleX(0)',
                  }} />
           </div>
-          <div className="flex gap-6 justify-center">
-            <a
-              href="https://linkedin.com/in/johndeveloper"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-all duration-500"
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'translateY(0)' : 'translateY(-20px)',
-                transitionDelay: '1s'
-              }}
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-8 h-8" />
-            </a>
-            <a
-              href="https://github.com/johndeveloper"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-all duration-500"
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'translateY(0)' : 'translateY(-20px)',
-                transitionDelay: '1.2s'
-              }}
-              aria-label="GitHub"
-            >
-              <Github className="w-8 h-8" />
-            </a>
-            <a
-              href="mailto:john@example.com"
-              className="text-white/60 hover:text-white transition-all duration-500"
-              style={{
-                opacity: heroVisible ? 1 : 0,
-                transform: heroVisible ? 'translateY(0)' : 'translateY(-20px)',
-                transitionDelay: '1.4s'
-              }}
-              aria-label="Email"
-            >
-              <Mail className="w-8 h-8" />
-            </a>
+          <div className="flex flex-col items-center gap-3 mt-4">
+            {['Web Development', 'Creative Design', 'Information Technology', 'Artificial Intelligence'].map((label, i) => (
+              <button
+                key={label}
+                onClick={() => serviceRefs.current[i]?.scrollIntoView({ behavior: 'smooth' })}
+                className="relative text-white hover:text-white/80 text-lg sm:text-xl tracking-wide transition-colors duration-200 cursor-pointer group pb-1"
+                style={{
+                  opacity: heroVisible ? 1 : 0,
+                  transform: heroVisible ? 'translateY(0)' : 'translateY(-20px)',
+                  transition: 'opacity 0.5s ease, transform 0.5s ease, color 0.2s ease',
+                  transitionDelay: `${0.8 + i * 0.15}s`,
+                }}
+              >
+                {label}
+                <span className="absolute left-1/2 -translate-x-1/2 bottom-0 h-0.5 bg-white transition-all duration-300 ease-out w-0 group-hover:w-full" />
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -177,7 +150,7 @@ export default function ServicesTab({ onContactClick }: ServicesTabProps) {
                 <Lightbulb className="w-12 h-12 text-white/80" />
               </div>
               <div className="relative inline-block w-full">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">Solutions Consultation</h3>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">Information Technology</h3>
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                      style={{
                        width: visibleServices.has(2) ? '60%' : '0%',
@@ -230,40 +203,6 @@ export default function ServicesTab({ onContactClick }: ServicesTabProps) {
               </div>
             </div>
 
-            <div ref={el => serviceRefs.current[4] = el} className="group">
-              <div className="flex justify-center mb-6">
-                <Box className="w-12 h-12 text-white/80" />
-              </div>
-              <div className="relative inline-block w-full">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">3D Visualizations</h3>
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
-                     style={{
-                       width: visibleServices.has(4) ? '60%' : '0%',
-                     }} />
-              </div>
-              <div className="max-w-3xl mx-auto">
-                <p className="text-white/70 leading-relaxed mb-6">
-                  Creating immersive 3D experiences and stunning visualizations for web,
-                  interactive applications, and rendered media.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-medium text-white mb-2">Unity</h4>
-                    <p className="text-sm text-white/60 leading-relaxed">
-                      Interactive 3D applications, real-time visualization, AR/VR experiences,
-                      game development, physics simulations
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-white mb-2">Blender</h4>
-                    <p className="text-sm text-white/60 leading-relaxed">
-                      3D modeling, photorealistic rendering, product visualization, architectural
-                      visualization, animation and motion graphics
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="text-center pb-20">
