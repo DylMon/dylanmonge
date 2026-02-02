@@ -120,22 +120,22 @@ export default function ExperienceSection() {
               {
                 name: 'De Bravo Media ',
                 url: 'https://debravomedia.com',
-                description: 'Full-stack marketplace with real-time inventory management, secure payment processing, and analytics dashboard. Built with React, Node.js, and PostgreSQL.',
+                description: 'A versatile media production company that specializes in telling stories of culture, faith and community.',
                 tags: [],
                 image: '/screenshots/debravo-thumbnail.png',
               },
               {
                 name: 'Achaary',
                 url: 'https://achaary.com/',
-                description: 'SaaS platform for AI-powered content creation with custom model fine-tuning, user authentication, and subscription management. Integrated with OpenAI API.',
-                tags: ['Next.js', 'TypeScript', 'OpenAI', 'Supabase'],
+                description: 'A couple-run small business that brings handcrafted, traditional indian flavor to the modern kitchen.',
+                tags: [],
                 image: '/screenshots/achaary-thumbnail.png',
               },
               {
                 name: 'LG Tech Solutions',
                 url: 'https://nwt.bvg.mybluehost.me/website_e5762df6/',
-                description: 'Enterprise analytics platform with real-time data visualization, custom reporting, and team collaboration features. Handles millions of events per day.',
-                tags: ['React', 'D3.js', 'WebSocket', 'Redis'],
+                description: 'A professional production team that delivers end-to-end service for any event.',
+                tags: [],
                 image: '/screenshots/lgtech-thumbnail.png',
               },
 
