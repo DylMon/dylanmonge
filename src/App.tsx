@@ -26,6 +26,7 @@ function App() {
   }, []);
 
   // Measure spacer positions for particle clustering
+  const prevOffsetsRef = useRef<string>('');
   useEffect(() => {
     const measure = () => {
       const offsets = sections.map((section) => {
@@ -33,8 +34,13 @@ function App() {
         if (!el) return 0;
         // getBoundingClientRect gives viewport-relative position;
         // add scrollY to get absolute document position
-        return el.getBoundingClientRect().top + window.scrollY;
+        return Math.round(el.getBoundingClientRect().top + window.scrollY);
       });
+      // Only update if values actually changed — prevents particle
+      // regeneration when iOS browser bar collapses/expands
+      const key = offsets.join(',');
+      if (key === prevOffsetsRef.current) return;
+      prevOffsetsRef.current = key;
       setSectionOffsets(offsets);
     };
 
