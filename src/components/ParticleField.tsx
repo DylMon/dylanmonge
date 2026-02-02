@@ -7,16 +7,14 @@ function createCircleTexture() {
   canvas.width = 64;
   canvas.height = 64;
   const ctx = canvas.getContext('2d')!;
-  // Radial gradient: position (0–1) = distance from center, alpha = brightness
-  // 0 = dead center (core), 1 = outer edge. Adjust alpha to control glow falloff.
   const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-  gradient.addColorStop(0,    'rgba(255,255,255,1)');    // Core center — full brightness
-  gradient.addColorStop(0.15, 'rgba(255,255,255,1)');  // Inner core edge — still bright
-  gradient.addColorStop(0.2, 'rgba(255,255,255,0.4)');  // Core-to-glow transition
-  gradient.addColorStop(0.3,  'rgba(255,255,255,0.12)'); // Inner glow
-  gradient.addColorStop(0.5,  'rgba(255,255,255,0.04)'); // Mid glow — very faint
-  gradient.addColorStop(0.75, 'rgba(255,255,255,0.01)'); // Outer glow — barely visible
-  gradient.addColorStop(1,    'rgba(255,255,255,0)');    // Edge — fully transparent
+  gradient.addColorStop(0,    'rgba(255,255,255,1)');
+  gradient.addColorStop(0.15, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.2,  'rgba(255,255,255,0.4)');
+  gradient.addColorStop(0.3,  'rgba(255,255,255,0.12)');
+  gradient.addColorStop(0.5,  'rgba(255,255,255,0.04)');
+  gradient.addColorStop(0.75, 'rgba(255,255,255,0.01)');
+  gradient.addColorStop(1,    'rgba(255,255,255,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, 64, 64);
   return new THREE.CanvasTexture(canvas);
@@ -24,59 +22,55 @@ function createCircleTexture() {
 
 // ============================================================
 // PARTICLE SYSTEM CONTROLS
-// Modify these values to customize the particle field.
 // ============================================================
 
 const PARTICLE_CONFIG = {
   // --- Density & Count ---
-  count: 20000,                // Total number of particles
+  count: 40000,                // Total particles (split evenly across clusters)
 
-  // --- Spread (how far particles distribute in space) ---
-  spreadX: 12,              // Horizontal spread
-  spreadY: 12,              // Vertical spread
-  spreadZ: 12,              // Depth spread (front-to-back)
+  // --- Cluster Spread (per hero region) ---
+  // Camera looks straight along Z. X = screen width, Z = depth.
+  // Y spread is calculated per-cluster to fill one viewport height.
+  clusterSpreadX: 20,         // Horizontal spread per cluster
+  clusterSpreadZ: 4,          // Depth spread per cluster
 
   // --- Appearance ---
-  size: 0.15,               // Particle size (world units, includes glow radius)
-  opacity: 0.8,             // Particle opacity (0–1)
-  sizeAttenuation: true,    // Particles shrink with distance
+  size: 0.5,
+  opacity: 0.8,
+  sizeAttenuation: true,
 
   // --- Star Colors (weight = relative probability) ---
   colors: [
-    { color: '#ffffff', weight: 0.98 },   // White
-    { color: '#faf2b6', weight: 0.01 },   // Warm yellow
-    { color: '#ff0000', weight: 0.01 },   // Red/orange
-    { color: '#a1d6ff', weight: 0.01 },   // Bright blue
+    { color: '#ffffff', weight: 0.98 },
+    { color: '#faf2b6', weight: 0.01 },
+    { color: '#ff0000', weight: 0.01 },
+    { color: '#a1d6ff', weight: 0.01 },
   ],
 
   // --- Twinkle ---
-  twinkleSpeed: 1.25,        // Base oscillation speed
-  twinkleAmount: 0.3,      // How much brightness varies (0 = none, 1 = full)
-
-  // --- Rotation Speed (ambient drift) ---
-  rotationSpeedX: 0.005,     // Rotation speed around X axis (rad/s)
-  rotationSpeedY: 0.005,     // Rotation speed around Y axis (rad/s)
+  twinkleSpeed: 1.25,
+  twinkleAmount: 0.3,
 
   // --- Scroll Panning ---
-  scrollFactor: 0.001,      // How much camera pans per pixel of scroll
-  scrollSmoothing: 2,       // Lerp speed for scroll smoothing (higher = snappier)
+  scrollFactor: 0.003,
+  scrollSmoothing: 2,
 
   // --- Camera ---
-  cameraZ: 1,               // Camera distance from origin
-  fov: 100,                  // Camera field of view (degrees)
+  cameraZ: 8,
+  fov: 75,
 
-  // --- Near Fade (hide particles too close to camera) ---
-  nearFade: 0.75,               // Particles closer than this distance fully disappear
-  nearFadeWidth: 0.5,        // Fade-in range beyond nearFade (smooth transition)
+  // --- Near Fade ---
+  nearFade: 4,
+  nearFadeWidth: 2,
 
-  // --- Fog (depth fade) ---
-  fogColor: '#060a14',       // Fog color (particles fade to background at distance)
-  fogNear: 1,                // Distance where fog begins
-  fogFar: 7,                // Distance where fog fully obscures particles
+  // --- Fog ---
+  fogColor: '#060a14',
+  fogNear: 6,
+  fogFar: 12,
 
   // --- Spawn-in Effect ---
-  spawnDuration: 2.5,          // Total time (seconds) for all particles to appear
-  spawnMaxRadius: 15,        // Max distance from camera that the reveal wave reaches
+  spawnDuration: 2.5,
+  spawnMaxRadius: 30,
 };
 
 // ============================================================
@@ -92,11 +86,18 @@ function pickColor(): THREE.Color {
   return new THREE.Color(colors[0].color);
 }
 
-interface ParticlesProps {
-  scrollY: number;
+// Calculate visible height at Z=0 for the given camera config
+function getVisibleHeight(): number {
+  const halfFovRad = (PARTICLE_CONFIG.fov / 2) * (Math.PI / 180);
+  return 2 * PARTICLE_CONFIG.cameraZ * Math.tan(halfFovRad);
 }
 
-function Particles({ scrollY }: ParticlesProps) {
+interface ParticlesProps {
+  scrollY: number;
+  sectionOffsets: number[];
+}
+
+function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
   const mesh = useRef<THREE.Points>(null);
   const scrollRef = useRef(scrollY);
   scrollRef.current = scrollY;
@@ -104,21 +105,42 @@ function Particles({ scrollY }: ParticlesProps) {
 
   const circleTexture = useMemo(() => createCircleTexture(), []);
 
-  const { positions, distances, colors, twinkleOffsets } = useMemo(() => {
+  // Generate clustered particle positions based on section offsets
+  const { positions, distances, colors, twinkleOffsets, scales } = useMemo(() => {
     const count = PARTICLE_CONFIG.count;
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
     const dist = new Float32Array(count);
     const offsets = new Float32Array(count);
+    const scl = new Float32Array(count).fill(0);
     const camZ = PARTICLE_CONFIG.cameraZ;
+
+    const numClusters = sectionOffsets.length || 1;
+    const perCluster = Math.floor(count / numClusters);
+    const clusterHeight = getVisibleHeight() * 1.3; // slightly taller than viewport for overlap
+
+    // Pre-compute cluster world-Y centers
+    const clusterCenters = sectionOffsets.map(
+      (offset) => -(offset ?? 0) * PARTICLE_CONFIG.scrollFactor
+    );
+
     for (let i = 0; i < count; i++) {
-      const x = (Math.random() - 0.5) * PARTICLE_CONFIG.spreadX;
-      const y = (Math.random() - 0.5) * PARTICLE_CONFIG.spreadY;
-      const z = (Math.random() - 0.5) * PARTICLE_CONFIG.spreadZ;
+      // Determine which cluster this particle belongs to
+      const clusterIndex = Math.min(Math.floor(i / perCluster), numClusters - 1);
+      const clusterWorldY = clusterCenters[clusterIndex];
+
+      const x = (Math.random() - 0.5) * PARTICLE_CONFIG.clusterSpreadX;
+      const y = clusterWorldY + (Math.random() - 0.5) * clusterHeight;
+      const z = (Math.random() - 0.5) * PARTICLE_CONFIG.clusterSpreadZ;
+
       pos[i * 3] = x;
       pos[i * 3 + 1] = y;
       pos[i * 3 + 2] = z;
-      dist[i] = Math.sqrt(x * x + y * y + (z - camZ) * (z - camZ));
+
+      // Distance from camera position when viewing THIS cluster's section
+      // Camera will be at (0, clusterWorldY, cameraZ) when this hero is in view
+      const dy = y - clusterWorldY;
+      dist[i] = Math.sqrt(x * x + dy * dy + (z - camZ) * (z - camZ));
 
       const c = pickColor();
       col[i * 3] = c.r;
@@ -127,18 +149,14 @@ function Particles({ scrollY }: ParticlesProps) {
 
       offsets[i] = Math.random() * Math.PI * 2;
     }
-    return { positions: pos, distances: dist, colors: col, twinkleOffsets: offsets };
-  }, []);
+    return { positions: pos, distances: dist, colors: col, twinkleOffsets: offsets, scales: scl };
+  }, [sectionOffsets]);
 
-  const scales = useMemo(() => new Float32Array(PARTICLE_CONFIG.count).fill(0), []);
+  // Stable key derived from offsets — forces full geometry recreation when layout changes
+  const offsetsKey = sectionOffsets.join(',');
 
   useFrame(({ camera }, delta) => {
     elapsed.current += delta;
-
-    if (mesh.current) {
-      mesh.current.rotation.y += delta * PARTICLE_CONFIG.rotationSpeedY;
-      mesh.current.rotation.x += delta * PARTICLE_CONFIG.rotationSpeedX;
-    }
 
     const target = -(scrollRef.current * PARTICLE_CONFIG.scrollFactor);
     camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
@@ -196,7 +214,6 @@ function Particles({ scrollY }: ParticlesProps) {
         void main() {
           vScale = aScale;
           vColor = aColor;
-          // Twinkle: per-particle sine wave with unique offset
           float twinkle = 1.0 - uTwinkleAmount * 0.5 + uTwinkleAmount * 0.5 * sin(uTime * uTwinkleSpeed * 6.2832 + aTwinkleOffset);
           vTwinkle = twinkle;
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
@@ -234,36 +251,28 @@ function Particles({ scrollY }: ParticlesProps) {
     });
   }, [circleTexture]);
 
-  // Update uTime uniform each frame
   useFrame(() => {
     shaderMaterial.uniforms.uTime.value = elapsed.current;
   });
 
   return (
-    <points ref={mesh} material={shaderMaterial}>
+    <points ref={mesh} material={shaderMaterial} key={offsetsKey}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-        <bufferAttribute
-          attach="attributes-aScale"
-          args={[scales, 1]}
-        />
-        <bufferAttribute
-          attach="attributes-aColor"
-          args={[colors, 3]}
-        />
-        <bufferAttribute
-          attach="attributes-aTwinkleOffset"
-          args={[twinkleOffsets, 1]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-aScale" args={[scales, 1]} />
+        <bufferAttribute attach="attributes-aColor" args={[colors, 3]} />
+        <bufferAttribute attach="attributes-aTwinkleOffset" args={[twinkleOffsets, 1]} />
       </bufferGeometry>
     </points>
   );
 }
 
-export default function ParticleField({ scrollY = 0 }: { scrollY?: number }) {
+interface ParticleFieldProps {
+  scrollY?: number;
+  sectionOffsets?: number[];
+}
+
+export default function ParticleField({ scrollY = 0, sectionOffsets = [0] }: ParticleFieldProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Canvas
@@ -271,7 +280,7 @@ export default function ParticleField({ scrollY = 0 }: { scrollY?: number }) {
         style={{ background: 'transparent' }}
         gl={{ alpha: true }}
       >
-        <Particles scrollY={scrollY} />
+        <Particles scrollY={scrollY} sectionOffsets={sectionOffsets} />
       </Canvas>
     </div>
   );
