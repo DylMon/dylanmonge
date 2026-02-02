@@ -92,7 +92,7 @@ function App() {
   const headerScrolled = scrollY >= window.innerHeight - 64;
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden" style={{ backgroundColor: '#060a14' }}>
+    <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
         <ParticleField scrollY={scrollY} sectionOffsets={sectionOffsets} />
         <div className="absolute inset-0 pointer-events-none" style={{
@@ -109,7 +109,7 @@ function App() {
         <div
           ref={el => { if (el) spacerRefs.current.set('services', el); }}
           id="services-hero"
-          className="h-screen"
+          style={{ height: '100lvh' }}
         />
         <ServicesSection
           onExploreWorkClick={() => scrollToElement('featured-projects')}
@@ -121,7 +121,7 @@ function App() {
         <div
           ref={el => { if (el) spacerRefs.current.set('experience', el); }}
           id="experience-hero"
-          className="h-screen"
+          style={{ height: '100lvh' }}
         />
         <ExperienceSection />
 
@@ -129,7 +129,7 @@ function App() {
         <div
           ref={el => { if (el) spacerRefs.current.set('personal', el); }}
           id="personal-hero"
-          className="h-screen"
+          style={{ height: '100lvh' }}
         />
         <PersonalSection />
 
@@ -137,7 +137,7 @@ function App() {
         <div
           ref={el => { if (el) spacerRefs.current.set('contact', el); }}
           id="contact-hero"
-          className="h-screen"
+          style={{ height: '100lvh' }}
         />
         <ContactSection onBackToTop={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
       </main>
