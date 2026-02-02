@@ -1,120 +1,120 @@
-import { FileDown } from 'lucide-react';
+import { useState } from 'react';
+import { FileDown, ChevronDown } from 'lucide-react';
 
 export default function ExperienceSection() {
+  const [openEntries, setOpenEntries] = useState<Set<number>>(new Set());
+
+  const toggleEntry = (index: number) => {
+    setOpenEntries(prev => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  };
+
   return (
-    <div className="bg-black relative z-10">
+    <div className="bg-black relative z-10 bg-grid overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
         <div className="mb-20">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Work History</h3>
-          <div className="space-y-12">
-                        <div className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-2">Freelance Web Developer</h4>
-                  <p className="text-white/60">Self-Employed</p>
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">Work History</h3>
+          <div className="h-0.5 bg-white mb-8" />
+          <div className="space-y-6">
+            {[
+              {
+                title: 'Freelance Web Developer',
+                company: 'Self-Employed',
+                date: '2024 - Present',
+                description: '',
+                bullets: [],
+              },
+              {
+                title: 'IT Infrastructure Technician',
+                company: 'DOV Group',
+                date: '2025 - Present',
+                description: 'At DOV Group, we provide IT infrastructure and managed support across a client base spanning industrial manufacturing, healthcare, and law. As an Infrastructure Technician, I support daily operations by maintaining reliable systems, managing asset data, and delivering secure, responsive technical support. My responsibilities include:',
+                bullets: [
+                  'Oversight of asset datasets and employee hardware across multiple client organizations, ensuring accurate lifecycle records, device availability, and operational visibility',
+                  'On-demand local and remote desktop support, troubleshooting hardware, software, and network issues while maintaining secure access using Ensight',
+                  'Administration of Microsoft 365 environments, including user provisioning, device oversight, and administrative configuration via the Admin Center',
+                ],
+              },
+              {
+                title: 'Lead ML Engineer',
+                company: 'Cal Poly Pomona Enterprises',
+                date: '2024 - Present',
+                description: 'Cal Poly Pomona Digital Twin Technology for Aerospace (CPP-DiTTA) is tasked with developing a real-time digital twin health monitoring demonstrator capable of identifying defects and damage to aircraft wings, enhancing predictive maintenance capabilities. My ongoing contributions include:',
+                bullets: [
+                  'Training a series of neural networks on simulated stress and deformation data to accurately locate structural flaws, with the goal of improving in-flight safety and maintenance',
+                  'Building and deploying an interactive website to demonstrate the digital twin model, allowing users to test and visualize 3D results in real-time with Blender and Unity',
+                  'Ensuring smooth project development and interdisciplinary collaboration through weekly meetings with project members and faculty',
+                ],
+              },
+              {
+                title: 'Instructor & Tech Support Intern',
+                company: 'Lavner Education',
+                date: 'Summer 2019',
+                description: 'Lavner Education delivers innovative STEM programs through K–12 camps in coding, AI, robotics, and digital design. As part of the Instruction team, I help ensure smooth daily operations and a high-quality learning experience for campers and staff. My role included:',
+                bullets: [
+                  'Setup and maintenance of computer hardware, software environments, and internet infrastructure to support daily tech camp operations',
+                  'Providing real-time troubleshooting and technical support to instructors and students, ensuring minimal downtime and consistent program delivery',
+                  'Acting as liaison between the camp site and headquarters for resolving technical issues, streamlining communication and implementation of solutions',
+                ],
+              },
+              {
+                title: 'Research Assistant - Digital Twin and XR Systems',
+                company: 'Cal Poly Pomona',
+                date: '2024 - 2025',
+                description: 'Engaged in the full lifecycle of project development from initial concept to final execution, my key responsibilities include developing workflow pipelines, testing software, and creating detailed 3D models from point-cloud data. I then use these models to develop virtual reality demonstrations in Unity, illustrating the practical uses of digital twin technology in augmented reality settings.',
+                bullets: [],
+              },
+            ].map((entry, i) => (
+              <div key={i} className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <h4 className="text-2xl font-semibold mb-2 font-syne">{entry.title}</h4>
+                    <p className="text-white/60">{entry.company}</p>
+                  </div>
+                  <span className="text-white/40 mt-2 md:mt-0">{entry.date}</span>
                 </div>
-                <span className="text-white/40 mt-2 md:mt-0">2024 - Present</span>
+                {(entry.description || entry.bullets.length > 0) && (
+                  <>
+                    <button
+                      onClick={() => toggleEntry(i)}
+                      className="flex items-center gap-2 mt-4 text-white/40 hover:text-white text-sm transition-colors duration-200"
+                    >
+                      <ChevronDown
+                        className="w-4 h-4 transition-transform duration-300"
+                        style={{ transform: openEntries.has(i) ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                      />
+                      <span>{openEntries.has(i) ? 'Hide details' : 'View details'}</span>
+                    </button>
+                    <div
+                      className="overflow-hidden transition-all duration-400 ease-in-out"
+                      style={{
+                        maxHeight: openEntries.has(i) ? '600px' : '0px',
+                        opacity: openEntries.has(i) ? 1 : 0,
+                      }}
+                    >
+                      <div className="pt-4 space-y-3 text-white/70 text-sm">
+                        {entry.description && <p className="leading-relaxed">{entry.description}</p>}
+                        {entry.bullets.length > 0 && (
+                          <ul className="space-y-2 list-disc list-inside">
+                            {entry.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-              <ul className="space-y-2 text-white/70 text-sm">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
-            
-            <div className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-2">IT Infrastructure Technician</h4>
-                  <p className="text-white/60">DOV Group</p>
-                </div>
-                <span className="text-white/40 mt-2 md:mt-0">2025 - Present</span>
-              </div>
-              <ul className="space-y-2 text-white/70 text-sm">
-              <p>
-                At DOV Group, we provide IT infrastructure and managed support across a client base spanning industrial manufacturing, 
-                healthcare, and law. As an Infrastructure Technician, I support daily operations by maintaining reliable systems, 
-                managing asset data, and delivering secure, responsive technical support. My responsibilities include: 
-              </p>
-                <li>Oversight of asset datasets and employee hardware across multiple client organizations, ensuring accurate lifecycle 
-                  records, device availability, and operational visibility</li>
-                <li>On-demand local and remote desktop support, troubleshooting hardware, software, and network issues while maintaining 
-                  secure access using Ensight</li>
-                <li>Administration of Microsoft 365 environments, including user provisioning, device oversight, and administrative 
-                  configuration via the Admin Center</li>
-              </ul>
-            </div>
-
-            <div className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-2">Lead ML Engineer</h4>
-                  <p className="text-white/60">Cal Poly Pomona Enterprises</p>
-                </div>
-                <span className="text-white/40 mt-2 md:mt-0">2024 - Present</span>
-              </div>
-              <ul className="space-y-2 text-white/70 text-sm">
-                <p>
-                  Cal Poly Pomona Digital Twin Technology for Aerospace (CPP-DiTTA) is tasked with developing a real-time digital 
-                  twin health monitoring demonstrator capable of identifying defects and damage to aircraft wings, enhancing 
-                  predictive maintenance capabilities. My ongoing contributions include:
-                </p>
-                <li>Training a series of neural networks on simulated stress and deformation data to accurately locate structural 
-                  flaws, with the goal of improving in-flight safety and maintenance</li>
-                <li>Building and deploying an interactive website to demonstrate the digital twin model, allowing users to test 
-                  and visualize 3D results in real-time with Blender and Unity</li>
-                <li>Ensuring smooth project development and interdisciplinary collaboration through weekly meetings with project members and faculty</li>
-              </ul>
-            </div>
-
-            <div className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-2">Instructor & Tech Support Intern</h4>
-                  <p className="text-white/60">Lavner Education</p>
-                </div>
-                <span className="text-white/40 mt-2 md:mt-0">Summer 2019</span>
-              </div>
-              <ul className="space-y-2 text-white/70 text-sm">
-                <p>
-                  Lavner Education delivers innovative STEM programs through K–12 camps in coding, AI, robotics, and digital 
-                  design. As part of the Instruction team, I help ensure smooth daily operations and a high-quality learning 
-                  experience for campers and staff. My role included:
-                </p>
-                <li>Setup and maintenance of computer hardware, software environments, and internet infrastructure to support 
-                  daily tech camp operations</li>
-                <li>Providing real-time troubleshooting and technical support to instructors and students, ensuring minimal 
-                  downtime and consistent program delivery</li>
-                <li> Acting as liaison between the camp site and headquarters for resolving technical issues, streamlining 
-                  communication and implementation of solutions</li>
-              </ul>
-            </div>
-
-            <div className="border-l-2 border-white/20 pl-8 hover:border-white/40 transition-colors">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-2">Research Assistant - Digital Twin and XR Systems</h4>
-                  <p className="text-white/60">Cal Poly Pomona</p>
-                </div>
-                <span className="text-white/40 mt-2 md:mt-0">2024 - 2025</span>
-              </div>
-              <ul className="space-y-2 text-white/70 text-sm">
-                <p>
-                  Engaged in the full lifecycle of project development from initial concept to final execution, my key 
-                  esponsibilities include developing workflow pipelines, testing software, and creating detailed 3D models 
-                  from point-cloud data. I then use these models to develop virtual reality demonstrations in Unity, 
-                  illustrating the practical uses of digital twin technology in augmented reality settings.
-                </p>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div id="featured-projects" className="mb-20">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">My Work</h3>
+        <div id="featured-projects" className="mb-20 scroll-mt-16">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">My Work</h3>
+          <div className="h-0.5 bg-white mb-8" />
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
@@ -176,8 +176,9 @@ export default function ExperienceSection() {
           </div>
         </div>
 
-        <div id="research-publications" className="mb-20">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Research & Publications</h3>
+        <div id="research-publications" className="mb-20 scroll-mt-16">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">Research & Publications</h3>
+          <div className="h-0.5 bg-white mb-8" />
           <div className="space-y-16">
             {[
               {
@@ -185,8 +186,9 @@ export default function ExperienceSection() {
                 citation: 'Driggs, C., Holley, A., Monge, D., Montano, R., and Sotoudeh, Z., “A Digital Twin Framework for Real-Time Damage Localization and Stress-Field Prediction in Plate Structures,” AIAA SciTech Forum, 2026.',
                 citationUrl: 'https://arc.aiaa.org/doi/10.2514/6.2026-0216',
                 paragraphs: [
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                  'CPP-DiTTA aims to create a virtual replica—or digital twin—of a real physical structure, allowing users to monitor and predict how it behaves under stress in real time. Designed as an educational and research tool, the project combines machine learning and engineering simulations to detect potential damage, visualize stress, and help make smarter decisions about structural health. It’s a step toward more intelligent, interactive systems that bridge the gap between the physical and digital worlds.',
+                  'In the project, I worked as a student assistant contributing to both the development and implementation of the digital twin system. My role included creating 3D models from real-world data, helping design the interactive web platform, and training machine learning models to recognize structural issues. I also supported testing and data preparation, helping bring together research, design, and technology into a working tool that anyone can explore and learn from.',
+                  'The CPP-DiTTA models are built into a website that you can explore here:'
                 ],
                 pdfUrl: '/downloads/Scitech2026-DiTTA-Full-ArcticleFinalV3.pdf',
                 image: '/screenshots/ditta-thumbnail.png',
@@ -221,24 +223,12 @@ export default function ExperienceSection() {
                   ))}
                 </div>
                 <a
-                  href={pub.citationUrl}
+                  href={pub.imageLabel}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 max-w-2xl group"
+                  className="inline-block px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
                 >
-                  <div className="aspect-video bg-white/10 relative overflow-hidden">
-                    {pub.image ? (
-                      <img
-                        src={pub.image}
-                        alt={`${pub.title} preview`}
-                        className="w-full h-full object-cover object-top"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-white/40 group-hover:text-white transition-colors text-sm">
-                        {pub.imageLabel} &rarr;
-                      </div>
-                    )}
-                  </div>
+                  Explore CPP-DiTTA
                 </a>
               </div>
             ))}
@@ -246,22 +236,12 @@ export default function ExperienceSection() {
         </div>
 
         <div className="mb-20">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-8">Certifications</h3>
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 max-w-lg">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">Certifications</h3>
+          <div className="h-0.5 bg-white mb-8" />
+          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 max-w-lg relative overflow-hidden glass-sheen">
             <h4 className="text-lg font-semibold mb-2">AWS Certified Cloud Practitioner</h4>
             <p className="text-white/60 text-sm mb-1">Amazon Web Services</p>
             <p className="text-white/40 text-xs">Issued: Jun 2025 &bull; Expires: Jun 2028</p>
-          </div>
-        </div>
-
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-          <h3 className="text-2xl font-semibold mb-6">Technical Skills</h3>
-          <div className="flex flex-wrap gap-3">
-            {['React', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'GraphQL', 'REST APIs', 'Git', 'CI/CD', 'Kubernetes', 'TensorFlow', 'Next.js', 'Redis'].map((skill) => (
-              <span key={skill} className="px-4 py-2 bg-white/10 rounded-full text-sm hover:bg-white/20 transition-colors">
-                {skill}
-              </span>
-            ))}
           </div>
         </div>
       </div>

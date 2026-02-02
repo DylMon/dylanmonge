@@ -34,20 +34,20 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
   }, []);
 
   return (
-    <div className="bg-black relative z-10">
+    <div className="bg-black relative z-10 bg-grid overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
         <div className="text-center mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight">Hello there!</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight font-syne">Hello there!</h2>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-            Full-spectrum technical solutions from concept to deployment. Leveraging cutting-edge technologies
-            and research-backed methodologies to deliver exceptional results.
+            I'm interesteed in solving digital problems to help people achieve their goals and target the right audience. My creativity and technical background have led me 
+            to fields like web development, IT, and AI research. I'm constantly trying new things and applying myself in novel ways. 
           </p>
         </div>
 
         <div className="space-y-20 mb-16">
-          <div ref={el => serviceRefs.current[0] = el} className="group">
+          <div ref={el => serviceRefs.current[0] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">Web Development</h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Web Development</h3>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                    style={{
                      width: visibleServices.has(0) ? '60%' : '0%',
@@ -55,13 +55,11 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2">Modern, Scalable, and High-Performance Web Solutions</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl">Modern, Intelligent and Seamless</h4>
                 <p className="text-sm leading-relaxed">
-                  I build responsive, fast, and secure web applications tailored to your business needs. Whether you're launching a startup,
-                  revamping a brand, or scaling enterprise infrastructure, I deliver full-stack solutions that blend clean code with
-                  intuitive user experiences. My expertise spans front-end frameworks like React and Vue, back-end technologies such as
-                  Node.js and Django, and database design using SQL and NoSQL systems. From landing pages to complex web platforms, I bring
-                  ideas to life with precision, performance, and future-proof architecture.
+                  I build web applications tailored to your exact needs. Whether you're launching your dream business,
+                   scaling enterprise infrastructure, or showcasing your unique brand, I deliver full-stack solutions that blend clean code with
+                  intuitive user experiences.
                 </p>
               </div>
               <div>
@@ -86,9 +84,9 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
           </div>
 
-          <div ref={el => serviceRefs.current[1] = el} className="group">
+          <div ref={el => serviceRefs.current[1] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">Information Technology</h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Information Technology</h3>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                    style={{
                      width: visibleServices.has(1) ? '60%' : '0%',
@@ -96,13 +94,13 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2">Reliable, Scalable IT Solutions</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl">Reliable, Scalable IT Solutions</h4>
                 <p className="text-sm leading-relaxed">
                   I provide end-to-end IT support and infrastructure solutions that ensure your technology works
-                  for you—not against you. From configuring secure networks and managing cloud infrastructure to
-                   automating workflows and troubleshooting technical issues, I help businesses stay efficient,
-                   protected, and ahead of the curve. My expertise spans system administration, cybersecurity
-                   best practices, and cloud platforms like AWS and Azure.
+                  for you without getting in the way. From configuring secure networks and managing cloud infrastructure to
+                   automating workflows and troubleshooting technical issues, I help businesses stay efficient 
+                   and ahead of the curve. My expertise spans system administration, cybersecurity
+                   best practices, and cloud platforms.
                 </p>
               </div>
               <div>
@@ -116,9 +114,9 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
           </div>
 
-          <div ref={el => serviceRefs.current[2] = el} className="group">
+          <div ref={el => serviceRefs.current[2] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center">Artificial Intelligence</h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Artificial Intelligence</h3>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                    style={{
                      width: visibleServices.has(2) ? '60%' : '0%',
@@ -126,18 +124,14 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2">Neural Networks & Digital Twins — Bridging Research and Application</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl">Neural Networks & Digital Twins — Bridging Research and Application</h4>
                 <p className="text-sm leading-relaxed">
-                  My research centers on neural networks and their role in creating intelligent digital twin systems—virtual replicas that mirror real-world
-                   entities to enable real-time monitoring, simulation, and optimization. I've authored a published paper investigating how deep learning
-                   architectures can be used to enhance the accuracy, adaptability, and predictive power of digital twins in complex environments.
-
-                  This work involved training and evaluating neural models to interpret dynamic system data, predict future states, and support
-                  decision-making across physical-digital systems. It deepened my expertise in model optimization, time-series analysis, and real-world
-                  deployment strategies.
-
-                  By combining theoretical insight with hands-on implementation, I bring an academically grounded and innovation-driven perspective to
-                  AI system design, especially in contexts where real-time intelligence is mission-critical.
+                  My research centers on neural networks and their role in creating intelligent digital twin systems: virtual replicas that mirror real-world
+                   entities to enable real-time monitoring, simulation, and optimization. I've co-authored a research paper exploring how neural networks can 
+                   power real-time digital twins for aerospace structures. Our system predicts structural damage location and reconstructs stress fields using 
+                   deep learning models trained on finite element simulations. These models analyze sensor data and provide fast, accurate diagnostics—bringing 
+                   intelligent, human-in-the-loop digital twins closer to real-world aerospace applications.
+                  
                 </p>
               </div>
               <div className="mt-6">

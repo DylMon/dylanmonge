@@ -5,3 +5,63 @@
 html {
   background-color: #060a14;
 }
+
+body {
+  font-family: 'Noto Serif JP', serif;
+}
+
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-michroma {
+  font-family: 'Michroma', sans-serif;
+}
+
+.glass-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(80, 120, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.bg-grid {
+  position: relative;
+}
+
+.bg-grid::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 48px 48px;
+  transform: rotate(8deg);
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 50%,
+    transparent 0%,
+    transparent 30%,
+    black 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 50%,
+    transparent 0%,
+    transparent 30%,
+    black 80%
+  );
+}
+
+.bg-grid > * {
+  position: relative;
+  z-index: 1;
+}

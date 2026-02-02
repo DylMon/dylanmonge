@@ -10,7 +10,7 @@ const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?:
   services: { title: 'Dylan Monge', showSocials: true },
   experience: {
     title: 'Experience',
-    subtitle: 'A proven academic record polished by modern industry technologies.',
+    subtitle: 'Proven in academia and industry. ',
   },
   personal: {
     title: 'About Me',
@@ -23,42 +23,47 @@ const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?:
 };
 
 export default function Hero({ activeSection }: HeroProps) {
-  // Only the first hero (services) gets a mount animation, and only once
-  const [mounted, setMounted] = useState(false);
+  const [lineShow, setLineShow] = useState(false);
+  const [titleShow, setTitleShow] = useState(false);
+  const [iconsShow, setIconsShow] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Line expands immediately
+    setLineShow(true);
+    // Name fades in after line + a beat
+    const t1 = setTimeout(() => setTitleShow(true), 900);
+    // Icons follow right after
+    const t2 = setTimeout(() => setIconsShow(true), 1300);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   const content = heroContent[activeSection];
   const isServices = activeSection === 'services';
 
-  // Services hero animates in on first load; all others are always fully visible
-  const titleShow = isServices ? mounted : true;
-  const delayedShow = isServices ? mounted : true;
+  const showLine = isServices ? lineShow : true;
+  const showTitle = isServices ? titleShow : true;
+  const showIcons = isServices ? iconsShow : true;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-[1] pointer-events-none">
-      <div className="text-center pointer-events-auto">
-        <div className="relative inline-block mb-8">
+      <div className="text-center pointer-events-auto px-4">
+        <div className="inline-block">
           <h1
-            className="font-semibold tracking-tight"
+            className="font-semibold tracking-tight font-michroma"
             style={{
               fontSize: 'clamp(2.5rem, 10vw, 6rem)',
-              opacity: titleShow ? 1 : 0,
-              transform: titleShow ? 'translateY(0)' : 'translateY(20px)',
+              opacity: showTitle ? 1 : 0,
+              transform: showTitle ? 'translateY(0)' : 'translateY(20px)',
               transition: isServices ? 'opacity 0.6s ease, transform 0.6s ease' : 'none',
             }}
           >
             {content.title}
           </h1>
           <div
-            className="absolute h-0.5 bg-white origin-center"
+            className="h-0.5 bg-white mt-4 mb-8"
             style={{
-              transition: isServices ? 'all 0.7s ease-out' : 'none',
-              ...(isServices
-                ? { bottom: '0.25rem', left: '23%', right: '23%', transform: titleShow ? 'scaleX(1)' : 'scaleX(0)' }
-                : { left: '50%', transform: 'translateX(-50%)', bottom: '-1rem', width: '80%' }),
+              width: isServices ? (showLine ? '100%' : '0%') : '100%',
+              transition: isServices ? 'width 0.7s ease-out' : 'none',
             }}
           />
         </div>
@@ -71,11 +76,11 @@ export default function Hero({ activeSection }: HeroProps) {
 
         {content.showSocials && (
           <div
-            className="flex justify-center gap-6 -mt-4"
+            className="flex justify-center gap-10"
             style={{
-              opacity: delayedShow ? 1 : 0,
-              transform: delayedShow ? 'translateY(0)' : 'translateY(-20px)',
-              transition: isServices ? 'opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s' : 'none',
+              opacity: showIcons ? 1 : 0,
+              transform: showIcons ? 'translateY(0)' : 'translateY(-20px)',
+              transition: isServices ? 'opacity 0.5s ease, transform 0.5s ease' : 'none',
             }}
           >
             <a href="https://www.linkedin.com/in/dylan-monge" target="_blank" rel="noopener noreferrer"

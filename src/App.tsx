@@ -94,8 +94,36 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Header becomes opaque when we're not in a hero spacer area
-  const headerScrolled = scrollY >= window.innerHeight - 64;
+  // Compute header background opacity based on whether a content block
+  // or a hero spacer is behind the header (top 64px of viewport).
+  // Transparent over spacers, opaque over content blocks.
+  const getHeaderOpacity = (): number => {
+    const headerBottom = scrollY + 64;
+    // Check each section: spacer is at sectionOffsets[i], content starts after spacer
+    // Spacer height is 100lvh. We approximate with window.innerHeight for the check.
+    const vh = window.innerHeight;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const spacerTop = sectionOffsets[i];
+      const spacerBottom = spacerTop + vh;
+      // If header bottom is within this spacer, header should be transparent
+      if (headerBottom >= spacerTop && headerBottom <= spacerBottom) {
+        // Fade out as we approach the spacer (top 64px transition)
+        const distFromBottom = spacerBottom - headerBottom;
+        if (distFromBottom < 64) {
+          return 1 - distFromBottom / 64;
+        }
+        // Fade in from previous content block
+        const distFromTop = headerBottom - spacerTop;
+        if (distFromTop < 64) {
+          return 1 - distFromTop / 64;
+        }
+        return 0;
+      }
+    }
+    // Not in any spacer — over a content block
+    return 1;
+  };
+  const headerOpacity = getHeaderOpacity();
 
   return (
     <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
@@ -108,7 +136,7 @@ function App() {
 
       <Hero activeSection={activeSection} />
 
-      <Header activeTab={activeSection} setActiveTab={scrollToSection} scrolled={headerScrolled} />
+      <Header activeTab={activeSection} setActiveTab={scrollToSection} backgroundOpacity={headerOpacity} />
 
       <main>
         {/* Services */}
