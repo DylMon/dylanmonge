@@ -40,7 +40,7 @@ export default function Footer() {
             <FileText className="w-6 h-6" />
           </a>
         </div>
-        <p className="text-white/40 text-sm">&copy; 2024 John Doe. Built with React & Tailwind CSS.</p>
+        <p className="text-white/40 text-sm">&copy; 2025 Dylan D. Monge. Made with love by a human.</p>
       </div>
     </footer>
   );

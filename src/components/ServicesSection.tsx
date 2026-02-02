@@ -37,7 +37,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
     <div className="bg-black relative z-10">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
         <div className="text-center mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight">What I Offer</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight">Hello there!</h2>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
             Full-spectrum technical solutions from concept to deployment. Leveraging cutting-edge technologies
             and research-backed methodologies to deliver exceptional results.

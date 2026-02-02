@@ -15,22 +15,22 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
           >
             <Mail className="w-8 h-8 mb-4 text-white/60 group-hover:text-white transition-colors" />
             <h3 className="text-sm font-medium text-white/60 mb-2">Email</h3>
-            <p className="text-xl group-hover:text-white transition-colors">john@example.com</p>
+            <p className="text-xl group-hover:text-white transition-colors">dylanmonge2002@gmail.com</p>
           </a>
 
           <a
-            href="https://github.com/johndeveloper"
+            href="https://github.com/DylMon"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
           >
             <Code2 className="w-8 h-8 mb-4 text-white/60 group-hover:text-white transition-colors" />
             <h3 className="text-sm font-medium text-white/60 mb-2">GitHub</h3>
-            <p className="text-xl group-hover:text-white transition-colors">@johndeveloper</p>
+            <p className="text-xl group-hover:text-white transition-colors">@DylMon</p>
           </a>
 
           <a
-            href="https://linkedin.com/in/johndeveloper"
+            href="https://www.linkedin.com/in/dylan-monge"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
@@ -40,16 +40,6 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
             <p className="text-xl group-hover:text-white transition-colors">@johndeveloper</p>
           </a>
 
-          <a
-            href="https://johndeveloper.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group"
-          >
-            <User className="w-8 h-8 mb-4 text-white/60 group-hover:text-white transition-colors" />
-            <h3 className="text-sm font-medium text-white/60 mb-2">Website</h3>
-            <p className="text-xl group-hover:text-white transition-colors">johndeveloper.com</p>
-          </a>
         </div>
 
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-12 border border-white/10 text-center max-w-2xl mx-auto">

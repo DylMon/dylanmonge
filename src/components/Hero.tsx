@@ -10,15 +10,15 @@ const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?:
   services: { title: 'Dylan Monge', showSocials: true },
   experience: {
     title: 'Experience',
-    subtitle: 'Over 6 years of professional experience building scalable applications and leading development teams.',
+    subtitle: 'A proven academic record polished by modern industry technologies.',
   },
   personal: {
     title: 'About Me',
     subtitle: 'Developer, creator, and lifelong learner.',
   },
   contact: {
-    title: 'Get in Touch',
-    subtitle: "I'm always interested in hearing about new opportunities and collaborations.",
+    title: 'I\'m Easy to Reach',
+    subtitle: "And open to taking on new challenges and opportunities.",
   },
 };
 
@@ -78,19 +78,19 @@ export default function Hero({ activeSection }: HeroProps) {
               transition: isServices ? 'opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s' : 'none',
             }}
           >
-            <a href="https://linkedin.com/in/johndeveloper" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.linkedin.com/in/dylan-monge" target="_blank" rel="noopener noreferrer"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
               <Linkedin className="w-8 h-8" />
             </a>
-            <a href="https://github.com/johndeveloper" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/DylMon" target="_blank" rel="noopener noreferrer"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="GitHub">
               <Github className="w-8 h-8" />
             </a>
-            <a href="mailto:john@example.com"
+            <a href="mailto:dylanmonge2002@gmail.com"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Email">
               <Mail className="w-8 h-8" />
             </a>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="/downloads/Resume_DylanMonge_08262025.pdf" target="_blank" rel="noopener noreferrer"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Resume">
               <FileText className="w-8 h-8" />
             </a>

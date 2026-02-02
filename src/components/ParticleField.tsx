@@ -31,12 +31,12 @@ const PARTICLE_CONFIG = {
   // --- Cluster Spread (per hero region) ---
   // Camera looks straight along Z. X = screen width, Z = depth.
   // Y spread is calculated per-cluster to fill one viewport height.
-  clusterSpreadX: 20,         // Horizontal spread per cluster
-  clusterSpreadZ: 4,          // Depth spread per cluster
+  clusterSpreadX: 30,         // Horizontal spread per cluster
+  clusterSpreadZ: 10,          // Depth spread per cluster
 
   // --- Appearance ---
-  size: 0.5,
-  opacity: 0.8,
+  size: 0.275,
+  opacity: 1,
   sizeAttenuation: true,
 
   // --- Star Colors (weight = relative probability) ---
@@ -48,28 +48,28 @@ const PARTICLE_CONFIG = {
   ],
 
   // --- Twinkle ---
-  twinkleSpeed: 1.25,
-  twinkleAmount: 0.3,
+  twinkleSpeed: 1,
+  twinkleAmount: 0.35,
 
   // --- Scroll Panning ---
   scrollFactor: 0.003,
-  scrollSmoothing: 2,
+  scrollSmoothing: 7.5,
 
   // --- Camera ---
   cameraZ: 8,
-  fov: 75,
+  fov: 50,
 
   // --- Near Fade ---
-  nearFade: 4,
-  nearFadeWidth: 2,
+  nearFade: 3,
+  nearFadeWidth: 1,
 
   // --- Fog ---
   fogColor: '#060a14',
-  fogNear: 6,
-  fogFar: 12,
+  fogNear: 1,
+  fogFar: 30,
 
   // --- Spawn-in Effect ---
-  spawnDuration: 2.5,
+  spawnDuration: 1.5,
   spawnMaxRadius: 30,
 };
 
