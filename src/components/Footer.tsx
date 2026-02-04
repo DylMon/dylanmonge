@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 sm:px-6 text-center">
         <div className="flex gap-6 justify-center mb-6">
           <a
-            href="https://linkedin.com/in/johndeveloper"
+            href="https://www.linkedin.com/in/dylan-monge/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/60 hover:text-white transition-colors duration-200"
@@ -15,7 +15,7 @@ export default function Footer() {
             <Linkedin className="w-6 h-6" />
           </a>
           <a
-            href="https://github.com/johndeveloper"
+            href="https://github.com/DylMon"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/60 hover:text-white transition-colors duration-200"
@@ -24,14 +24,14 @@ export default function Footer() {
             <Github className="w-6 h-6" />
           </a>
           <a
-            href="mailto:john@example.com"
+            href="mailto:dylanmonge2002@gmail.com"
             className="text-white/60 hover:text-white transition-colors duration-200"
             aria-label="Email"
           >
             <Mail className="w-6 h-6" />
           </a>
           <a
-            href="/resume.pdf"
+            href="/downloads/Resume_DylanMonge_08262025.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/60 hover:text-white transition-colors duration-200"

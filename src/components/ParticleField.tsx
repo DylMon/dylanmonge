@@ -26,7 +26,7 @@ function createCircleTexture() {
 
 const PARTICLE_CONFIG = {
   // --- Density & Count ---
-  count: 40000,                // Total particles (split evenly across clusters)
+  count: 150000,                // Total particles (split evenly across clusters)
 
   // --- Cluster Spread (per hero region) ---
   // Camera looks straight along Z. X = screen width, Z = depth.
@@ -60,10 +60,11 @@ const PARTICLE_CONFIG = {
   fov: 50,
 
   // --- Near Fade ---
-  nearFade: 3,
+  nearFade: 2,
   nearFadeWidth: 1,
 
   // --- Fog ---
+  // #060a14
   fogColor: '#060a14',
   fogNear: 1,
   fogFar: 30,
