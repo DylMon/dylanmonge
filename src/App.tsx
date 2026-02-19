@@ -14,27 +14,46 @@ const sections: Tab[] = ['services', 'experience', 'personal', 'contact'];
 function App() {
   const [scrollY, setScrollY] = useState(0);
   const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0, 0]);
-
-  // Derive active section from scroll position — deterministic and
-  // immune to IntersectionObserver quirks after programmatic scrolls.
-  const activeSection: Tab = (() => {
-    if (sectionOffsets.every(o => o === 0)) return 'services';
-    const scrollMid = scrollY + window.innerHeight * 0.6;
-    for (let i = sections.length - 1; i >= 0; i--) {
-      if (sectionOffsets[i] <= scrollMid) {
-        return sections[i];
-      }
-    }
-    return sections[0];
-  })();
+  const [activeSection, setActiveSection] = useState<Tab>('services');
   const spacerRefs = useRef<Map<Tab, HTMLDivElement>>(new Map());
+  const offsetsRef = useRef(sectionOffsets);
+  offsetsRef.current = sectionOffsets;
 
+  // Update scrollY and active section from live scroll position.
+  // Uses both rAF (for desktop / active touch) and a scroll listener
+  // (for mobile momentum scrolling, where iOS pauses rAF).
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    let rafId: number;
+    let lastSy = -1;
+
+    const update = () => {
+      const sy = window.scrollY;
+      if (sy === lastSy) return;
+      lastSy = sy;
+      setScrollY(sy);
+
+      const offsets = offsetsRef.current;
+      if (offsets.every(o => o === 0)) return;
+      const scrollMid = sy + window.innerHeight * 0.5;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (offsets[i] <= scrollMid) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const tick = () => {
+      update();
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    window.addEventListener('scroll', update, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', update);
+    };
   }, []);
 
   // Measure spacer positions for particle clustering

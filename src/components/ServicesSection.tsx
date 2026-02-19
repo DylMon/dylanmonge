@@ -55,7 +55,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl">Modern, Intelligent and Seamless</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
                 <p className="text-sm leading-relaxed">
                   I build web applications tailored to your exact needs. Whether you're launching your dream business,
                    scaling enterprise infrastructure, or showcasing your unique brand, I deliver full-stack solutions that blend clean code with
@@ -76,7 +76,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
               <div className="mt-6">
                 <button
                   onClick={onExploreWorkClick}
-                  className="px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
+                  className="px-6 py-3 border border-white text-white rounded-full font-medium hover:bg-white/10 transition-all duration-200"
                 >
                   Explore my Work
                 </button>
@@ -94,7 +94,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl">Reliable, Scalable IT Solutions</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
                 <p className="text-sm leading-relaxed">
                   I provide end-to-end IT support and infrastructure solutions that ensure your technology works
                   for you without getting in the way. From configuring secure networks and managing cloud infrastructure to
@@ -116,7 +116,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
 
           <div ref={el => serviceRefs.current[2] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Artificial Intelligence</h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Machine Learning</h3>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                    style={{
                      width: visibleServices.has(2) ? '60%' : '0%',
@@ -124,7 +124,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl">Neural Networks & Digital Twins — Bridging Research and Application</h4>
+                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
                 <p className="text-sm leading-relaxed">
                   My research centers on neural networks and their role in creating intelligent digital twin systems: virtual replicas that mirror real-world
                    entities to enable real-time monitoring, simulation, and optimization. I've co-authored a research paper exploring how neural networks can 
@@ -137,7 +137,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
               <div className="mt-6">
                 <button
                   onClick={onResearchClick}
-                  className="px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
+                  className="px-6 py-3 border border-white text-white rounded-full font-medium hover:bg-white/10 transition-all duration-200"
                 >
                   My Research
                 </button>
@@ -151,7 +151,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             onClick={onContactClick}
             className="px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
           >
-            Get in touch
+            Get in Touch
           </button>
         </div>
       </div>

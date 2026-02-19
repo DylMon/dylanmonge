@@ -32,8 +32,8 @@ export default function Header({ activeTab, setActiveTab, backgroundOpacity }: H
               <div key={key} className="relative">
                 <button
                   onClick={() => setActiveTab(key)}
-                  onMouseEnter={() => setHoveredTab(key)}
-                  onMouseLeave={() => setHoveredTab(null)}
+                  onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHoveredTab(key); }}
+                  onPointerLeave={() => setHoveredTab(null)}
                   className={`text-sm transition-all duration-200 pb-1 ${
                     activeTab === key
                       ? 'text-white'

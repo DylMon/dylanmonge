@@ -226,7 +226,7 @@ export default function ExperienceSection() {
                   href={pub.imageLabel}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
+                  className="inline-block px-6 py-3 border border-white text-white rounded-full font-medium hover:bg-white/10 transition-all duration-200"
                 >
                   Explore CPP-DiTTA
                 </a>
