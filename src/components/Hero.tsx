@@ -28,12 +28,12 @@ export default function Hero({ activeSection }: HeroProps) {
   const [iconsShow, setIconsShow] = useState(false);
 
   useEffect(() => {
-    // Line expands immediately
+    // 1. Line expands first (0.7s transition)
     setLineShow(true);
-    // Name fades in after line + a beat
-    const t1 = setTimeout(() => setTitleShow(true), 900);
-    // Icons follow right after
-    const t2 = setTimeout(() => setIconsShow(true), 1300);
+    // 2. Name drops in after line finishes + a beat
+    const t1 = setTimeout(() => setTitleShow(true), 500);
+    // 3. Icons follow shortly after name
+    const t2 = setTimeout(() => setIconsShow(true), 700);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
@@ -49,7 +49,7 @@ export default function Hero({ activeSection }: HeroProps) {
       <div className="text-center pointer-events-auto px-4">
         <div className="inline-block">
           <h1
-            className="font-semibold tracking-tight font-michroma"
+            className="font-semibold tracking-tight font-source-serif"
             style={{
               fontSize: 'clamp(2.5rem, 10vw, 6rem)',
               opacity: showTitle ? 1 : 0,
@@ -60,10 +60,11 @@ export default function Hero({ activeSection }: HeroProps) {
             {content.title}
           </h1>
           <div
-            className="h-0.5 bg-white mt-4 mb-8"
+            className="h-0.5 bg-white -mt-1 mb-5 mx-auto"
             style={{
-              width: isServices ? (showLine ? '100%' : '0%') : '100%',
-              transition: isServices ? 'width 0.7s ease-out' : 'none',
+              width: '100%',
+              transform: isServices ? (showLine ? 'scaleX(1)' : 'scaleX(0)') : 'scaleX(1)',
+              transition: isServices ? 'transform 0.7s ease-out' : 'none',
             }}
           />
         </div>
@@ -91,7 +92,7 @@ export default function Hero({ activeSection }: HeroProps) {
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="GitHub">
               <Github className="w-8 h-8" />
             </a>
-            <a href="mailto:dylanmonge2002@gmail.com"
+            <a href="mailto:dylanmonge.dev@gmail.com"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Email">
               <Mail className="w-8 h-8" />
             </a>

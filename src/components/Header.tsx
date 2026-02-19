@@ -27,7 +27,7 @@ export default function Header({ activeTab, setActiveTab, backgroundOpacity }: H
     >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-center h-16">
-          <nav className="flex gap-4 sm:gap-8 md:gap-12 font-michroma">
+          <nav className="flex gap-4 sm:gap-8 md:gap-12 font-source-serif">
             {tabs.map(({ key, label }) => (
               <div key={key} className="relative">
                 <button

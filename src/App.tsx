@@ -12,9 +12,21 @@ import ContactSection from './components/ContactSection';
 const sections: Tab[] = ['services', 'experience', 'personal', 'contact'];
 
 function App() {
-  const [activeSection, setActiveSection] = useState<Tab>('services');
   const [scrollY, setScrollY] = useState(0);
   const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0, 0]);
+
+  // Derive active section from scroll position — deterministic and
+  // immune to IntersectionObserver quirks after programmatic scrolls.
+  const activeSection: Tab = (() => {
+    if (sectionOffsets.every(o => o === 0)) return 'services';
+    const scrollMid = scrollY + window.innerHeight * 0.6;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      if (sectionOffsets[i] <= scrollMid) {
+        return sections[i];
+      }
+    }
+    return sections[0];
+  })();
   const spacerRefs = useRef<Map<Tab, HTMLDivElement>>(new Map());
 
   useEffect(() => {
@@ -62,29 +74,6 @@ function App() {
     };
   }, []);
 
-  // Detect which section's spacer is most visible
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    sections.forEach((section) => {
-      const el = spacerRefs.current.get(section);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
-            setActiveSection(section);
-          }
-        },
-        { threshold: 0.3 }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach(o => o.disconnect());
-  }, []);
-
   const scrollToSection = (section: Tab) => {
     const el = spacerRefs.current.get(section);
     el?.scrollIntoView({ behavior: 'smooth' });
@@ -130,7 +119,7 @@ function App() {
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
         <ParticleField scrollY={scrollY} sectionOffsets={sectionOffsets} />
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: 'radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 40%, transparent 70%)',
+          background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 40%, transparent 70%)',
         }} />
       </div>
 

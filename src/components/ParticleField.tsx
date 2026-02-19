@@ -26,7 +26,7 @@ function createCircleTexture() {
 
 const PARTICLE_CONFIG = {
   // --- Density & Count ---
-  count: 150000,                // Total particles (split evenly across clusters)
+  count: 100000,                // Total particles (split evenly across clusters)
 
   // --- Cluster Spread (per hero region) ---
   // Camera looks straight along Z. X = screen width, Z = depth.
@@ -35,7 +35,7 @@ const PARTICLE_CONFIG = {
   clusterSpreadZ: 10,          // Depth spread per cluster
 
   // --- Appearance ---
-  size: 0.275,
+  size: 0.25,
   opacity: 1,
   sizeAttenuation: true,
 
@@ -70,6 +70,7 @@ const PARTICLE_CONFIG = {
   fogFar: 30,
 
   // --- Spawn-in Effect ---
+  spawnDelay: 0.75,
   spawnDuration: 1.5,
   spawnMaxRadius: 30,
 };
@@ -162,8 +163,9 @@ function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
     const target = -(scrollRef.current * PARTICLE_CONFIG.scrollFactor);
     camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
 
-    // Spawn-in: expand reveal radius over time
-    const progress = Math.min(elapsed.current / PARTICLE_CONFIG.spawnDuration, 1);
+    // Spawn-in: expand reveal radius over time (after initial delay)
+    const spawnElapsed = Math.max(0, elapsed.current - PARTICLE_CONFIG.spawnDelay);
+    const progress = Math.min(spawnElapsed / PARTICLE_CONFIG.spawnDuration, 1);
     const revealRadius = progress * PARTICLE_CONFIG.spawnMaxRadius;
 
     const geom = mesh.current?.geometry;

@@ -29,7 +29,7 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
           >
             <Mail className="w-8 h-8 mb-4 text-white/60 group-hover:text-white transition-colors" />
             <h3 className="text-sm font-medium text-white/60 mb-2">Email</h3>
-            <p className="text-xl group-hover:text-white transition-colors">dylanmonge2002@gmail.com</p>
+            <p className="text-xl group-hover:text-white transition-colors">dylanmonge.dev@gmail.com</p>
           </a>
 
           <a
