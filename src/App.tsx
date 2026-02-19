@@ -133,6 +133,19 @@ function App() {
   };
   const headerOpacity = getHeaderOpacity();
 
+  // Hero section uses a higher scroll threshold than activeSection so the text
+  // switches while the departing content block (bg-black, z-10) still covers the
+  // centered hero text.  At vh*0.8, the spacer top is only 20% from the viewport
+  // bottom when the change fires — the center (50%) is still masked by content.
+  const heroSection = (() => {
+    if (sectionOffsets.every(o => o === 0)) return sections[0];
+    const heroThreshold = scrollY + window.innerHeight * 0.8;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      if (sectionOffsets[i] <= heroThreshold) return sections[i];
+    }
+    return sections[0];
+  })();
+
   return (
     <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
@@ -142,7 +155,7 @@ function App() {
         }} />
       </div>
 
-      <Hero activeSection={activeSection} />
+      <Hero activeSection={heroSection} />
 
       <Header activeTab={activeSection} setActiveTab={scrollToSection} backgroundOpacity={headerOpacity} />
 
