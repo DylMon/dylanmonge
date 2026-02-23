@@ -133,7 +133,7 @@ export default function ExperienceSection() {
               },
               {
                 name: 'LG Tech Solutions',
-                url: 'https://nwt.bvg.mybluehost.me/website_e5762df6/',
+                url: 'https://lgtechsolution.com',
                 description: 'A professional production team that delivers end-to-end service for any event.',
                 tags: [],
                 image: '/screenshots/lgtech-thumbnail.png',
