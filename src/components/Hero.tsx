@@ -96,7 +96,7 @@ export default function Hero({ activeSection }: HeroProps) {
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Email">
               <Mail className="w-8 h-8" />
             </a>
-            <a href="/downloads/Resume_DylanMonge_08262025.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="/downloads/Resume_online.pdf" target="_blank" rel="noopener noreferrer"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Resume">
               <FileText className="w-8 h-8" />
             </a>

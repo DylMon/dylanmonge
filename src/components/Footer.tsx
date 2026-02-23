@@ -31,7 +31,7 @@ export default function Footer() {
             <Mail className="w-6 h-6" />
           </a>
           <a
-            href="/downloads/Resume_DylanMonge_08262025.pdf"
+            href="/downloads/Resume_online.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/60 hover:text-white transition-colors duration-200"
