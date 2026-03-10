@@ -26,7 +26,7 @@ function createCircleTexture() {
 
 const PARTICLE_CONFIG = {
   // --- Density & Count ---
-  count: 100000,                // Total particles (split evenly across clusters)
+  count: 50000,                // Total particles (split evenly across clusters)
 
   // --- Cluster Spread (per hero region) ---
   // Camera looks straight along Z. X = screen width, Z = depth.

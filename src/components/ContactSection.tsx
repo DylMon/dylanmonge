@@ -15,7 +15,7 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
             I'm always open to taking on a new challenge. If you have somethig in mind, feel free to reach out and we can start collaborating. Or just say hello! 
           </p>
           <a
-            href="mailto:john@example.com"
+            href="dylanmonge.dev@gmail.com"
             className="inline-block px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
           >
             Send me a message
@@ -24,7 +24,7 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
 
         <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
           <a
-            href="mailto:john@example.com"
+            href="mailto:dylanmonge.dev@gmail.com"
             className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group relative overflow-hidden glass-sheen"
           >
             <Mail className="w-8 h-8 mb-4 text-white/60 group-hover:text-white transition-colors" />
