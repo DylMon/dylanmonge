@@ -53,7 +53,7 @@ export default function ExperienceSection() {
               {
                 title: 'Instructor & Tech Support Intern',
                 company: 'Lavner Education',
-                date: 'Summer 2019',
+                date: 'Summer 2025',
                 description: 'Lavner Education delivers innovative STEM programs through K–12 camps in coding, AI, robotics, and digital design. As part of the Instruction team, I help ensure smooth daily operations and a high-quality learning experience for campers and staff. My role included:',
                 bullets: [
                   'Setup and maintenance of computer hardware, software environments, and internet infrastructure to support daily tech camp operations',
