@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -99,14 +99,12 @@ function getVisibleHeight(): number {
 }
 
 interface ParticlesProps {
-  scrollY: number;
+  scrollYRef: React.RefObject<number>;
   sectionOffsets: number[];
 }
 
-function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
+function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
   const mesh = useRef<THREE.Points>(null);
-  const scrollRef = useRef(scrollY);
-  scrollRef.current = scrollY;
   const elapsed = useRef(0);
   const spawnDone = useRef(false);
 
@@ -165,7 +163,7 @@ function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
   useFrame(({ camera }, delta) => {
     elapsed.current += delta;
 
-    const target = -(scrollRef.current * PARTICLE_CONFIG.scrollFactor);
+    const target = -((scrollYRef.current ?? 0) * PARTICLE_CONFIG.scrollFactor);
     camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
 
     // Spawn-in: expand reveal radius over time (after initial delay)
@@ -281,11 +279,11 @@ function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
 }
 
 interface ParticleFieldProps {
-  scrollY?: number;
+  scrollYRef: React.RefObject<number>;
   sectionOffsets?: number[];
 }
 
-export default function ParticleField({ scrollY = 0, sectionOffsets = [0] }: ParticleFieldProps) {
+export default function ParticleField({ scrollYRef, sectionOffsets = [0] }: ParticleFieldProps) {
   return (
     <div className="absolute inset-0 pointer-events-none">
       <Canvas
@@ -294,7 +292,7 @@ export default function ParticleField({ scrollY = 0, sectionOffsets = [0] }: Par
         gl={{ alpha: true, powerPreference: 'high-performance' }}
         dpr={isMobile ? [1, 1.5] : [1, 2]}
       >
-        <Particles scrollY={scrollY} sectionOffsets={sectionOffsets} />
+        <Particles scrollYRef={scrollYRef} sectionOffsets={sectionOffsets} />
       </Canvas>
     </div>
   );

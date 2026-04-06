@@ -14,6 +14,7 @@ const sections: Tab[] = ['services', 'experience', 'personal', 'contact'];
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
+  const scrollYRef = useRef(0);
   const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0, 0]);
   const [activeSection, setActiveSection] = useState<Tab>('services');
   const spacerRefs = useRef<Map<Tab, HTMLDivElement>>(new Map());
@@ -31,6 +32,7 @@ function App() {
       const sy = window.scrollY;
       if (sy === lastSy) return;
       lastSy = sy;
+      scrollYRef.current = sy;
       setScrollY(sy);
 
       const offsets = offsetsRef.current;
@@ -158,7 +160,7 @@ function App() {
     <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
         <Suspense fallback={null}>
-          <ParticleField scrollY={scrollY} sectionOffsets={sectionOffsets} />
+          <ParticleField scrollYRef={scrollYRef} sectionOffsets={sectionOffsets} />
         </Suspense>
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 40%, transparent 70%)',
