@@ -157,6 +157,19 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
     return { positions: pos, distances: dist, colors: col, twinkleOffsets: offsets, scales: scl };
   }, [sectionOffsets]);
 
+  // Precompute per-cluster draw ranges and world-Y centers for draw-range culling
+  const clusterInfo = useMemo(() => {
+    const numClusters = sectionOffsets.length || 1;
+    const perCluster = Math.floor(PARTICLE_CONFIG.count / numClusters);
+    return Array.from({ length: numClusters }, (_, i) => ({
+      start: i * perCluster,
+      count: i === numClusters - 1
+        ? PARTICLE_CONFIG.count - i * perCluster
+        : perCluster,
+      centerY: -(sectionOffsets[i] * PARTICLE_CONFIG.scrollFactor),
+    }));
+  }, [sectionOffsets]);
+
   // Stable key derived from offsets — forces full geometry recreation when layout changes
   const offsetsKey = sectionOffsets.join(',');
 
@@ -165,6 +178,22 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
 
     const target = -((scrollYRef.current ?? 0) * PARTICLE_CONFIG.scrollFactor);
     camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
+
+    // Draw-range culling: only submit visible clusters to the GPU
+    if (clusterInfo.length > 1 && mesh.current) {
+      const camY = camera.position.y;
+      let closestIdx = 0;
+      let minDist = Infinity;
+      for (let i = 0; i < clusterInfo.length; i++) {
+        const d = Math.abs(camY - clusterInfo[i].centerY);
+        if (d < minDist) { minDist = d; closestIdx = i; }
+      }
+      const first = Math.max(0, closestIdx - 1);
+      const last  = Math.min(clusterInfo.length - 1, closestIdx + 1);
+      const startVertex = clusterInfo[first].start;
+      const endVertex   = clusterInfo[last].start + clusterInfo[last].count;
+      mesh.current.geometry.setDrawRange(startVertex, endVertex - startVertex);
+    }
 
     // Spawn-in: expand reveal radius over time (after initial delay)
     if (!spawnDone.current) {
