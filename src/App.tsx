@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { ChevronUp } from 'lucide-react';
 import { Tab } from './types';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ParticleField from './components/ParticleField';
+const ParticleField = lazy(() => import('./components/ParticleField'));
 import Hero from './components/Hero';
 import ServicesSection from './components/ServicesSection';
 import ExperienceSection from './components/ExperienceSection';
@@ -157,7 +157,9 @@ function App() {
   return (
     <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
-        <ParticleField scrollY={scrollY} sectionOffsets={sectionOffsets} />
+        <Suspense fallback={null}>
+          <ParticleField scrollY={scrollY} sectionOffsets={sectionOffsets} />
+        </Suspense>
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 40%, transparent 70%)',
         }} />
