@@ -166,11 +166,8 @@ function App() {
       <Hero activeSection={heroSection} />
 
       <div
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10"
-        style={{ opacity: scrollHintOpacity, transition: 'opacity 0.5s ease', pointerEvents: scrollHintOpacity > 0 ? 'auto' : 'none' }}
-        onClick={() => scrollToElement('services-hero')}
-        role="button"
-        aria-label="Scroll down"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+        style={{ opacity: scrollHintOpacity, transition: 'opacity 0.5s ease' }}
       >
         <ChevronUp className="w-8 h-8 text-white animate-bounce" />
       </div>

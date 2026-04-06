@@ -108,6 +108,7 @@ function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
   const scrollRef = useRef(scrollY);
   scrollRef.current = scrollY;
   const elapsed = useRef(0);
+  const spawnDone = useRef(false);
 
   const circleTexture = useMemo(() => createCircleTexture(), []);
 
@@ -168,25 +169,30 @@ function Particles({ scrollY, sectionOffsets }: ParticlesProps) {
     camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
 
     // Spawn-in: expand reveal radius over time (after initial delay)
-    const spawnElapsed = Math.max(0, elapsed.current - PARTICLE_CONFIG.spawnDelay);
-    const progress = Math.min(spawnElapsed / PARTICLE_CONFIG.spawnDuration, 1);
-    const revealRadius = progress * PARTICLE_CONFIG.spawnMaxRadius;
+    if (!spawnDone.current) {
+      const spawnElapsed = Math.max(0, elapsed.current - PARTICLE_CONFIG.spawnDelay);
+      const progress = Math.min(spawnElapsed / PARTICLE_CONFIG.spawnDuration, 1);
+      const revealRadius = progress * PARTICLE_CONFIG.spawnMaxRadius;
 
-    const geom = mesh.current?.geometry;
-    if (geom) {
-      let needsUpdate = false;
-      for (let i = 0; i < PARTICLE_CONFIG.count; i++) {
-        if (scales[i] < 1) {
-          const t = distances[i] <= revealRadius
-            ? Math.min((revealRadius - distances[i]) / 2, 1)
-            : 0;
-          scales[i] = t;
-          needsUpdate = true;
+      const geom = mesh.current?.geometry;
+      if (geom) {
+        let needsUpdate = false;
+        let allDone = true;
+        for (let i = 0; i < PARTICLE_CONFIG.count; i++) {
+          if (scales[i] < 1) {
+            const t = distances[i] <= revealRadius
+              ? Math.min((revealRadius - distances[i]) / 2, 1)
+              : 0;
+            scales[i] = t;
+            needsUpdate = true;
+            if (t < 1) allDone = false;
+          }
         }
-      }
-      const scaleAttr = geom.getAttribute('aScale');
-      if (scaleAttr && needsUpdate) {
-        (scaleAttr as THREE.BufferAttribute).needsUpdate = true;
+        const scaleAttr = geom.getAttribute('aScale');
+        if (scaleAttr && needsUpdate) {
+          (scaleAttr as THREE.BufferAttribute).needsUpdate = true;
+        }
+        if (allDone) spawnDone.current = true;
       }
     }
   });
