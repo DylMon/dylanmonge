@@ -177,7 +177,8 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
     elapsed.current += delta;
 
     const target = -((scrollYRef.current ?? 0) * PARTICLE_CONFIG.scrollFactor);
-    camera.position.y += (target - camera.position.y) * Math.min(delta * PARTICLE_CONFIG.scrollSmoothing, 1);
+    const dt = Math.min(delta, 1 / 30); // clamp so a paused rAF resuming with large delta doesn't snap
+    camera.position.y += (target - camera.position.y) * (dt * PARTICLE_CONFIG.scrollSmoothing);
 
     // Draw-range culling: only submit visible clusters to the GPU
     if (clusterInfo.length > 1 && mesh.current) {
