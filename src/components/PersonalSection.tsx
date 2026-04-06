@@ -4,7 +4,7 @@ export default function PersonalSection() {
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
         <div className="max-w-3xl space-y-6 text-white/70 text-lg leading-relaxed mb-16">
           <p>
-            I'm empassioned by the ways technology enables us to express our ideas, connect with others, and solve complex problems. My background in computer science has taught me problem solving skills that I use throughout my life.
+            I'm impassioned by the ways technology enables us to express our ideas, connect with others, and solve complex problems. My background in computer science has taught me problem solving skills that I use throughout my life.
           </p>
           <p>
             When I'm not at my desk, you can expect me to be busying myself with creative projects like art or digital rendering, playing an instrument, reading a book or at the gym.
@@ -28,7 +28,7 @@ export default function PersonalSection() {
           </div>
           <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 relative overflow-hidden glass-sheen">
             <h3 className="text-sm font-medium text-white/60 mb-2">Interests</h3>
-            <p className="text-xl">Web Design, Data Science, Arttificial Intelligence </p>
+            <p className="text-xl">Web Design, Data Science, Artificial Intelligence</p>
           </div>
         </div>
 

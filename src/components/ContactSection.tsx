@@ -12,10 +12,10 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
           <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">Currently Available</h3>
           <div className="h-0.5 bg-white mb-8" />
           <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-3xl">
-            I'm always open to taking on a new challenge. If you have somethig in mind, feel free to reach out and we can start collaborating. Or just say hello! 
+            I'm always open to taking on a new challenge. If you have something in mind, feel free to reach out and we can start collaborating. Or just say hello! 
           </p>
           <a
-            href="dylanmonge.dev@gmail.com"
+            href="mailto:dylanmonge.dev@gmail.com"
             className="inline-block px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
           >
             Send me a message

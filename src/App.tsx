@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { ChevronUp } from 'lucide-react';
 import { Tab } from './types';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -133,6 +134,13 @@ function App() {
   };
   const headerOpacity = getHeaderOpacity();
 
+  const [scrollHintReady, setScrollHintReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setScrollHintReady(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+  const scrollHintOpacity = scrollHintReady ? Math.max(0, 1 - scrollY / 80) : 0;
+
   // Hero section uses a higher scroll threshold than activeSection so the text
   // switches while the departing content block (bg-black, z-10) still covers the
   // centered hero text.  At vh*0.8, the spacer top is only 20% from the viewport
@@ -156,6 +164,16 @@ function App() {
       </div>
 
       <Hero activeSection={heroSection} />
+
+      <div
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10"
+        style={{ opacity: scrollHintOpacity, transition: 'opacity 0.5s ease', pointerEvents: scrollHintOpacity > 0 ? 'auto' : 'none' }}
+        onClick={() => scrollToElement('services-hero')}
+        role="button"
+        aria-label="Scroll down"
+      >
+        <ChevronUp className="w-8 h-8 text-white animate-bounce" />
+      </div>
 
       <Header activeTab={activeSection} setActiveTab={scrollToSection} backgroundOpacity={headerOpacity} />
 

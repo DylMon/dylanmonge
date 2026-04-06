@@ -24,9 +24,13 @@ function createCircleTexture() {
 // PARTICLE SYSTEM CONTROLS
 // ============================================================
 
+const isMobile =
+  typeof window !== 'undefined' &&
+  (window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768);
+
 const PARTICLE_CONFIG = {
   // --- Density & Count ---
-  count: 50000,                // Total particles (split evenly across clusters)
+  count: isMobile ? 15000 : 50000, // Reduced on mobile for performance
 
   // --- Cluster Spread (per hero region) ---
   // Camera looks straight along Z. X = screen width, Z = depth.
@@ -281,7 +285,8 @@ export default function ParticleField({ scrollY = 0, sectionOffsets = [0] }: Par
       <Canvas
         camera={{ position: [0, 0, PARTICLE_CONFIG.cameraZ], fov: PARTICLE_CONFIG.fov }}
         style={{ background: 'transparent' }}
-        gl={{ alpha: true }}
+        gl={{ alpha: true, powerPreference: 'high-performance' }}
+        dpr={isMobile ? [1, 1.5] : [1, 2]}
       >
         <Particles scrollY={scrollY} sectionOffsets={sectionOffsets} />
       </Canvas>

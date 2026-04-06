@@ -39,7 +39,7 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
         <div className="text-center mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight font-syne">Hello there!</h2>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-            I'm interesteed in solving digital problems to help people achieve their goals and target the right audience. My creativity and technical background have led me 
+            I'm interested in solving digital problems to help people achieve their goals and target the right audience. My creativity and technical background have led me 
             to fields like web development, IT, and AI research. I'm constantly trying new things and applying myself in novel ways. 
           </p>
         </div>
