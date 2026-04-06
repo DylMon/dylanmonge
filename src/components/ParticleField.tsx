@@ -1,6 +1,7 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { particleCameraRef } from '../particleCameraRef';
 
 function createCircleTexture() {
   const canvas = document.createElement('canvas');
@@ -57,7 +58,7 @@ const PARTICLE_CONFIG = {
 
   // --- Scroll Panning ---
   scrollFactor: 0.003,
-  scrollSmoothing: 7.5,
+  scrollSmoothing: isMobile ? 20 : 7.5,
 
   // --- Camera ---
   cameraZ: 8,
@@ -107,6 +108,12 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
   const mesh = useRef<THREE.Points>(null);
   const elapsed = useRef(0);
   const spawnDone = useRef(false);
+
+  const { camera } = useThree();
+  useEffect(() => {
+    particleCameraRef.current = camera;
+    return () => { particleCameraRef.current = null; };
+  }, [camera]);
 
   const circleTexture = useMemo(() => createCircleTexture(), []);
 

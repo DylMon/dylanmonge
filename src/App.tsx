@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense, startTransition } from 'react';
 import { ChevronUp } from 'lucide-react';
+import { particleCameraRef, SCROLL_FACTOR } from './particleCameraRef';
 import { Tab } from './types';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ const sections: Tab[] = ['services', 'experience', 'personal', 'contact'];
 function App() {
   const [scrollY, setScrollY] = useState(0);
   const scrollYRef = useRef(0);
+  const isMomentumScrollRef = useRef(false);
   const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0, 0]);
   const [activeSection, setActiveSection] = useState<Tab>('services');
   const spacerRefs = useRef<Map<Tab, HTMLDivElement>>(new Map());
@@ -28,11 +30,23 @@ function App() {
     let rafId: number;
     let lastSy = -1;
 
+    const onTouchStart = () => { isMomentumScrollRef.current = false; };
+    const onTouchEnd   = () => { isMomentumScrollRef.current = true; };
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend',   onTouchEnd,   { passive: true });
+
     const update = () => {
       const sy = window.scrollY;
       if (sy === lastSy) return;
       lastSy = sy;
       scrollYRef.current = sy;
+
+      // During momentum scroll rAF is paused on iOS — push camera directly so
+      // there is nothing to catch up when rAF resumes.
+      if (isMomentumScrollRef.current && particleCameraRef.current) {
+        particleCameraRef.current.position.y = -(sy * SCROLL_FACTOR);
+      }
+
       setScrollY(sy);
 
       const offsets = offsetsRef.current;
@@ -40,7 +54,7 @@ function App() {
       const scrollMid = sy + window.innerHeight * 0.5;
       for (let i = sections.length - 1; i >= 0; i--) {
         if (offsets[i] <= scrollMid) {
-          setActiveSection(sections[i]);
+          startTransition(() => setActiveSection(sections[i]));
           break;
         }
       }
@@ -56,6 +70,8 @@ function App() {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', update);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend',   onTouchEnd);
     };
   }, []);
 
