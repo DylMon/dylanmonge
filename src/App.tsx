@@ -8,16 +8,16 @@ const ParticleField = lazy(() => import('./components/ParticleField'));
 import Hero from './components/Hero';
 import ServicesSection from './components/ServicesSection';
 import ExperienceSection from './components/ExperienceSection';
-import PersonalSection from './components/PersonalSection';
+// import PersonalSection from './components/PersonalSection';
 import ContactSection from './components/ContactSection';
 
-const sections: Tab[] = ['services', 'experience', 'personal', 'contact'];
+const sections: Tab[] = ['services', 'experience', 'contact'];
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
   const scrollYRef = useRef(0);
   const isMomentumScrollRef = useRef(false);
-  const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0, 0]);
+  const [sectionOffsets, setSectionOffsets] = useState<number[]>([0, 0, 0]);
   const [activeSection, setActiveSection] = useState<Tab>('services');
   const spacerRefs = useRef<Map<Tab, HTMLDivElement>>(new Map());
   const offsetsRef = useRef(sectionOffsets);
@@ -215,13 +215,13 @@ function App() {
         />
         <ExperienceSection />
 
-        {/* About */}
+        {/* About — removed
         <div
           ref={el => { if (el) spacerRefs.current.set('personal', el); }}
           id="personal-hero"
           style={{ height: '100lvh' }}
         />
-        <PersonalSection />
+        <PersonalSection /> */}
 
         {/* Contact */}
         <div

@@ -1,1 +1,1 @@
-export type Tab = 'services' | 'experience' | 'personal' | 'contact';
+export type Tab = 'services' | 'experience' | 'contact';

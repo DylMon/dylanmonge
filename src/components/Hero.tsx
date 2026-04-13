@@ -12,10 +12,7 @@ const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?:
     title: 'Experience',
     subtitle: 'Proven in academia and industry. ',
   },
-  personal: {
-    title: 'About Me',
-    subtitle: 'Developer, creator, and lifelong learner.',
-  },
+  // personal removed
   contact: {
     title: 'I\'m Easy to Reach',
     subtitle: "And open to taking on new challenges and opportunities.",

@@ -10,7 +10,7 @@ interface HeaderProps {
 const tabs: { key: Tab; label: string }[] = [
   { key: 'services', label: 'Services' },
   { key: 'experience', label: 'Experience' },
-  { key: 'personal', label: 'About' },
+
   { key: 'contact', label: 'Contact' },
 ];
 

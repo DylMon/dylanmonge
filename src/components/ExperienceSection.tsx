@@ -192,7 +192,6 @@ export default function ExperienceSection() {
                 ],
                 pdfUrl: '/downloads/Scitech2026-DiTTA-Full-ArcticleFinalV3.pdf',
                 image: '/screenshots/ditta-thumbnail.png',
-                imageLabel: 'https://digitaltwintech.studio/',
               },
 
             ].map((pub) => (
@@ -223,12 +222,22 @@ export default function ExperienceSection() {
                   ))}
                 </div>
                 <a
-                  href={pub.imageLabel}
+                  href="https://digitaltwintech.studio/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-6 py-3 border border-white text-white rounded-full font-medium hover:bg-white/10 transition-all duration-200"
+                  className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:bg-white/10 transition-all duration-300 group block max-w-sm"
                 >
-                  Explore CPP-DiTTA
+                  <div className="aspect-video bg-white/10 relative overflow-hidden">
+                    <img
+                      src={pub.image}
+                      alt="CPP-DiTTA preview"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-semibold mb-2 group-hover:text-white transition-colors">CPP-DiTTA</h4>
+                    <p className="text-white/60 text-sm leading-relaxed">digitaltwintech.studio</p>
+                  </div>
                 </a>
               </div>
             ))}
