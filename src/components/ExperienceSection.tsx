@@ -24,7 +24,7 @@ export default function ExperienceSection() {
               {
                 title: 'Freelance Web Developer',
                 company: 'Self-Employed',
-                date: '2024 - Present',
+                date: 'May 2025 - Present',
                 description: '',
                 bullets: [],
               },
@@ -42,7 +42,7 @@ export default function ExperienceSection() {
               {
                 title: 'Lead ML Engineer',
                 company: 'Cal Poly Pomona Enterprises',
-                date: '2024 - Present',
+                date: '2024 - 2026',
                 description: 'Cal Poly Pomona Digital Twin Technology for Aerospace (CPP-DiTTA) is tasked with developing a real-time digital twin health monitoring demonstrator capable of identifying defects and damage to aircraft wings, enhancing predictive maintenance capabilities. My ongoing contributions include:',
                 bullets: [
                   'Training a series of neural networks on simulated stress and deformation data to accurately locate structural flaws, with the goal of improving in-flight safety and maintenance',
@@ -120,23 +120,30 @@ export default function ExperienceSection() {
               {
                 name: 'De Bravo Media ',
                 url: 'https://debravomedia.com',
-                description: 'A versatile media production company that specializes in telling stories of culture, faith and community.',
+                description: 'A dynamic media production organization led by Reese Cuevas. Specializes in telling stories of culture, faith and community.',
                 tags: [],
-                image: '/screenshots/debravo-thumbnail.png',
+                image: '/screenshots/debravo-thumbnail.jpg',
               },
               {
                 name: 'Achaary',
                 url: 'https://achaary.com/',
                 description: 'A couple-run small business that brings handcrafted, traditional indian flavor to the modern kitchen.',
                 tags: [],
-                image: '/screenshots/achaary-thumbnail.png',
+                image: '/screenshots/achaary-thumbnail.jpg',
+              },
+              {
+                name: 'Flourish Metabolic Health',
+                url: 'https://www.flourishmetabolichealth.com/',
+                description: "Dr. Anisha Sarma's online practice focused on women's metabolic health, serving women across California.",
+                tags: [],
+                image: '/screenshots/flourish-thumbnail.jpg',
               },
               {
                 name: 'LG Tech Solutions',
                 url: 'https://lgtechsolution.com',
                 description: 'A professional production team that delivers end-to-end service for any event.',
                 tags: [],
-                image: '/screenshots/lgtech-thumbnail.png',
+                image: '/screenshots/lgtech-thumbnail.jpg',
               },
 
             ].map((project) => (
@@ -152,6 +159,7 @@ export default function ExperienceSection() {
                     <img
                       src={project.image}
                       alt={`${project.name} preview`}
+                      loading="lazy"
                       className="w-full h-full object-cover object-top"
                     />
                   ) : (
@@ -210,7 +218,7 @@ export default function ExperienceSection() {
                     href={pub.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm transition-colors duration-200"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 border border-white text-white rounded-full text-sm font-medium hover:bg-white/10 transition-all duration-200"
                   >
                     <FileDown className="w-4 h-4" />
                     <span>View PDF</span>
@@ -231,6 +239,7 @@ export default function ExperienceSection() {
                     <img
                       src={pub.image}
                       alt="CPP-DiTTA preview"
+                      loading="lazy"
                       className="w-full h-full object-cover object-top"
                     />
                   </div>

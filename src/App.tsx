@@ -4,6 +4,7 @@ import { particleCameraRef, SCROLL_FACTOR } from './particleCameraRef';
 import { Tab } from './types';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 const ParticleField = lazy(() => import('./components/ParticleField'));
 import Hero from './components/Hero';
 import ServicesSection from './components/ServicesSection';
@@ -175,9 +176,11 @@ function App() {
   return (
     <div className="text-white overflow-x-hidden" style={{ backgroundColor: '#060a14', minHeight: '100lvh' }}>
       <div className="fixed top-0 left-0 w-full z-0" style={{ height: '100lvh' }}>
-        <Suspense fallback={null}>
-          <ParticleField scrollYRef={scrollYRef} sectionOffsets={sectionOffsets} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <ParticleField scrollYRef={scrollYRef} sectionOffsets={sectionOffsets} />
+          </Suspense>
+        </ErrorBoundary>
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 40%, transparent 70%)',
         }} />

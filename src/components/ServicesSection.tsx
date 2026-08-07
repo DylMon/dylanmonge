@@ -39,15 +39,16 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
         <div className="text-center mb-20">
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-semibold mb-6 tracking-tight font-syne">Hello there!</h2>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-            I'm interested in solving digital problems to help people achieve their goals and target the right audience. My creativity and technical background have led me 
-            to fields like web development, IT, and AI research. I'm constantly trying new things and applying myself in novel ways. 
+            I’m a Computer Science graduate from Cal Poly Pomona with experience spanning IT infrastructure, web development, and applied machine learning. 
+            I’ve built web applications for real clients, supported and managed technology environments across multiple industries, and contributed published 
+            research on neural networks for aerospace digital twins. I’m AWS Certified and drawn to work that falls within these domains.
           </p>
         </div>
 
         <div className="space-y-20 mb-16">
           <div ref={el => serviceRefs.current[0] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Web Development</h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Information Technology</h3>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
                    style={{
                      width: visibleServices.has(0) ? '60%' : '0%',
@@ -55,7 +56,38 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
+                <p className="text-sm leading-relaxed">
+                  I provide hands-on IT support and infrastructure management for businesses that need their technology to
+                  just work. From administering Microsoft 365 and Entra ID environments to maintaining networks, workstations,
+                  and business-critical systems, I keep day-to-day operations running smoothly across client organizations.
+                  My experience spans system administration, network troubleshooting, and cloud infrastructure, backed by an
+                  AWS Certified Cloud Practitioner certification.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-medium text-white mb-2">What I Deliver:</h4>
+              </div>
+              <ul className="text-sm leading-relaxed list-disc list-inside space-y-1">
+                <li>Remote & on-site technical support (workstations, hardware, software)</li>
+                <li>Microsoft 365 & Entra ID administration (user provisioning, access, device management)</li>
+                <li>Active Directory administration</li>
+                <li>Network setup & troubleshooting (TCP/IP, DNS, DHCP, VLANs, LAN/Wi-Fi)</li>
+                <li>Asset lifecycle tracking & hardware deployment</li>
+                <li>Cloud infrastructure setup & management (AWS)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div ref={el => serviceRefs.current[1] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
+            <div className="relative inline-block w-full">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Web Development</h3>
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
+                   style={{
+                     width: visibleServices.has(1) ? '60%' : '0%',
+                   }} />
+            </div>
+            <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
+              <div>
                 <p className="text-sm leading-relaxed">
                   I build web applications tailored to your exact needs. Whether you're launching your dream business,
                    scaling enterprise infrastructure, or showcasing your unique brand, I deliver full-stack solutions that blend clean code with
@@ -84,36 +116,6 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
           </div>
 
-          <div ref={el => serviceRefs.current[1] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
-            <div className="relative inline-block w-full">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Information Technology</h3>
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-6 h-0.5 bg-white transition-all duration-700 ease-out"
-                   style={{
-                     width: visibleServices.has(1) ? '60%' : '0%',
-                   }} />
-            </div>
-            <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
-              <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
-                <p className="text-sm leading-relaxed">
-                  I provide end-to-end IT support and infrastructure solutions that ensure your technology works
-                  for you without getting in the way. From configuring secure networks and managing cloud infrastructure to
-                   automating workflows and troubleshooting technical issues, I help businesses stay efficient 
-                   and ahead of the curve. My expertise spans system administration, cybersecurity
-                   best practices, and cloud platforms.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-medium text-white mb-2">What I Deliver:</h4>
-              </div>
-              <ul className="text-sm leading-relaxed list-disc list-inside space-y-1">
-                <li>IT infrastructure setup & optimization (servers, networks, devices)</li>
-                <li>Cloud services configuration & management (AWS, Azure, Google Cloud)</li>
-                <li>Technical support & troubleshooting (remote or on-site)</li>
-              </ul>
-            </div>
-          </div>
-
           <div ref={el => serviceRefs.current[2] = el} className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 sm:p-10 border border-white/10 relative overflow-hidden glass-sheen">
             <div className="relative inline-block w-full">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-8 text-center font-syne">Machine Learning</h3>
@@ -124,7 +126,6 @@ export default function ServicesSection({ onExploreWorkClick, onResearchClick, o
             </div>
             <div className="space-y-4 text-white/70 max-w-3xl mx-auto">
               <div>
-                <h4 className="font-medium text-white mb-2 text-center text-xl"></h4>
                 <p className="text-sm leading-relaxed">
                   My research centers on neural networks and their role in creating intelligent digital twin systems: virtual replicas that mirror real-world
                    entities to enable real-time monitoring, simulation, and optimization. I've co-authored a research paper exploring how neural networks can 
