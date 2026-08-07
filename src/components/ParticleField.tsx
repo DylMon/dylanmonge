@@ -108,6 +108,12 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
   const mesh = useRef<THREE.Points>(null);
   const elapsed = useRef(0);
   const spawnDone = useRef(false);
+  // Tracks whether the one-time spawn-in animation has already played.
+  // sectionOffsets changing (e.g. viewport resize) forces this component's
+  // <points> to remount with fresh, zeroed-out scales — without this flag
+  // the new particles would stay permanently invisible since spawnDone
+  // (above) is already true and the reveal loop never runs again.
+  const hasSpawnedOnce = useRef(false);
 
   const { camera } = useThree();
   useEffect(() => {
@@ -124,7 +130,7 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
     const col = new Float32Array(count * 3);
     const dist = new Float32Array(count);
     const offsets = new Float32Array(count);
-    const scl = new Float32Array(count).fill(0);
+    const scl = new Float32Array(count).fill(hasSpawnedOnce.current ? 1 : 0);
     const camZ = PARTICLE_CONFIG.cameraZ;
 
     const numClusters = sectionOffsets.length || 1;
@@ -227,7 +233,7 @@ function Particles({ scrollYRef, sectionOffsets }: ParticlesProps) {
         if (scaleAttr && needsUpdate) {
           (scaleAttr as THREE.BufferAttribute).needsUpdate = true;
         }
-        if (allDone) spawnDone.current = true;
+        if (allDone) { spawnDone.current = true; hasSpawnedOnce.current = true; }
       }
     }
   });
