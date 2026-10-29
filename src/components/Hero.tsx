@@ -7,7 +7,7 @@ interface HeroProps {
 }
 
 const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?: boolean }> = {
-  services: { title: 'Dylan Monge', showSocials: true },
+  services: { title: 'Dylan Monge', subtitle: 'IT Infrastructure Technician', showSocials: true },
   experience: {
     title: 'Experience',
     subtitle: 'Proven in academia and industry. ',
@@ -67,7 +67,13 @@ export default function Hero({ activeSection }: HeroProps) {
         </div>
 
         {content.subtitle && (
-          <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed px-4">
+          <p
+            className={`text-xl text-white/60 max-w-3xl mx-auto leading-relaxed px-4 ${content.showSocials ? 'mb-6' : ''}`}
+            style={{
+              opacity: showIcons ? 1 : 0,
+              transition: isServices ? 'opacity 0.5s ease' : 'none',
+            }}
+          >
             {content.subtitle}
           </p>
         )}
@@ -93,7 +99,7 @@ export default function Hero({ activeSection }: HeroProps) {
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Email">
               <Mail className="w-8 h-8" />
             </a>
-            <a href="/downloads/Resume_online.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="/downloads/resume_online.pdf" target="_blank" rel="noopener noreferrer"
                className="text-white/60 hover:text-white transition-colors duration-200" aria-label="Resume">
               <FileText className="w-8 h-8" />
             </a>

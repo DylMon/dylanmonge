@@ -22,32 +22,28 @@ export default function ExperienceSection() {
           <div className="space-y-6">
             {[
               {
-                title: 'Freelance Web Developer',
-                company: 'Self-Employed',
-                date: 'May 2025 - Present',
-                description: '',
-                bullets: [],
-              },
-              {
                 title: 'IT Infrastructure Technician',
-                company: 'DOV Group',
-                date: '2025 - Present',
+                company: 'DOV Group · Part-time',
+                date: 'Sep 2025 - Present',
                 description: 'At DOV Group, we provide IT infrastructure and managed support across a client base spanning industrial manufacturing, healthcare, and law. As an Infrastructure Technician, I support daily operations by maintaining reliable systems, managing asset data, and delivering secure, responsive technical support. My responsibilities include:',
                 bullets: [
                   'Oversight of asset datasets and employee hardware across multiple client organizations, ensuring accurate lifecycle records, device availability, and operational visibility',
                   'On-demand local and remote desktop support, troubleshooting hardware, software, and network issues while maintaining secure access using Ensight',
                   'Administration of Microsoft 365 environments, including user provisioning, device oversight, and administrative configuration via the Admin Center',
+                  'Installation and support for IoT and smart office infrastructure, including security cameras, conference rooms and employee workstations',
                 ],
               },
               {
-                title: 'Lead ML Engineer',
-                company: 'Cal Poly Pomona Enterprises',
-                date: '2024 - 2026',
-                description: 'Cal Poly Pomona Digital Twin Technology for Aerospace (CPP-DiTTA) is tasked with developing a real-time digital twin health monitoring demonstrator capable of identifying defects and damage to aircraft wings, enhancing predictive maintenance capabilities. My ongoing contributions include:',
+                title: 'Freelance Web Developer',
+                company: 'Self-Employed',
+                date: 'May 2025 - Present',
+                description: 'I build and run websites and backend systems for small businesses, taking projects from requirements through launch and ongoing maintenance. Most clients are local service businesses that need a site, a booking or payment flow, and someone to keep it running. My responsibilities include:',
                 bullets: [
-                  'Training a series of neural networks on simulated stress and deformation data to accurately locate structural flaws, with the goal of improving in-flight safety and maintenance',
-                  'Building and deploying an interactive website to demonstrate the digital twin model, allowing users to test and visualize 3D results in real-time with Blender and Unity',
-                  'Ensuring smooth project development and interdisciplinary collaboration through weekly meetings with project members and faculty',
+                  'Deploying and maintaining production environments on Vercel and Supabase/PostgreSQL, owning DNS, SSL, hosting, authentication, and database configuration',
+                  'Integrating third-party payment, scheduling, and inventory systems and translating client requirements into reliable technical solutions',
+                  'Building to WCAG 2.1 AA accessibility guidelines for ADA compliance, including keyboard navigation, contrast, and screen-reader support',
+                  'Handling ongoing support, updates, and uptime for live client sites after launch',
+                  'Building each project so it can be handed off, with documentation and credentials the client owns',
                 ],
               },
               {
@@ -59,6 +55,17 @@ export default function ExperienceSection() {
                   'Setup and maintenance of computer hardware, software environments, and internet infrastructure to support daily tech camp operations',
                   'Providing real-time troubleshooting and technical support to instructors and students, ensuring minimal downtime and consistent program delivery',
                   'Acting as liaison between the camp site and headquarters for resolving technical issues, streamlining communication and implementation of solutions',
+                ],
+              },
+              {
+                title: 'Undergraduate Research Lead (Machine Learning)',
+                company: 'Cal Poly Pomona Enterprises · Part-time',
+                date: 'Apr 2024 - Aug 2026',
+                description: 'Cal Poly Pomona Digital Twin Technology for Aerospace (CPP-DiTTA) is tasked with developing a real-time digital twin health monitoring demonstrator capable of identifying defects and damage to aircraft wings, enhancing predictive maintenance capabilities. My contributions include:',
+                bullets: [
+                  'Training a series of neural networks on simulated stress and deformation data to accurately locate structural flaws, with the goal of improving in-flight safety and maintenance',
+                  'Building and deploying an interactive website to demonstrate the digital twin model, allowing users to test and visualize 3D results in real-time with Blender and Unity',
+                  'Ensuring smooth project development and interdisciplinary collaboration through weekly meetings with project members and faculty',
                 ],
               },
               {
@@ -92,7 +99,7 @@ export default function ExperienceSection() {
                     <div
                       className="overflow-hidden transition-all duration-400 ease-in-out"
                       style={{
-                        maxHeight: openEntries.has(i) ? '600px' : '0px',
+                        maxHeight: openEntries.has(i) ? '900px' : '0px',
                         opacity: openEntries.has(i) ? 1 : 0,
                       }}
                     >
