@@ -9,14 +9,14 @@ export default function ContactSection({ onBackToTop }: ContactSectionProps) {
     <div className="bg-black relative z-10 bg-grid overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20 pb-32">
         <div className="mb-16">
-          <h3 className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight mb-4 font-syne">Currently Available</h3>
+          <h3 className="text-3xl sm:text-4xl md:text-6xl text-center font-semibold tracking-tight mb-4 font-syne">Currently Available</h3>
           <div className="h-0.5 bg-white mb-8" />
-          <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-3xl">
+          <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
             I'm always open to taking on a new challenge. If you have something in mind, feel free to reach out and we can start collaborating. Or just say hello! 
           </p>
           <a
             href="mailto:dylanmonge.dev@gmail.com"
-            className="inline-block px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
+            className="block w-fit mx-auto px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-all duration-200"
           >
             Send me a message
           </a>

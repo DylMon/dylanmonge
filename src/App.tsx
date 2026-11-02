@@ -118,10 +118,6 @@ function App() {
     el?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToElement = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   // Compute header background opacity based on whether a content block
   // or a hero spacer is behind the header (top 64px of viewport).
   // Transparent over spacers, opaque over content blocks.
@@ -205,8 +201,6 @@ function App() {
           style={{ height: '100lvh' }}
         />
         <ServicesSection
-          onExploreWorkClick={() => scrollToElement('featured-projects')}
-          onResearchClick={() => scrollToElement('research-publications')}
           onContactClick={() => scrollToSection('contact')}
         />
 

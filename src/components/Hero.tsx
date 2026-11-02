@@ -9,7 +9,7 @@ interface HeroProps {
 const heroContent: Record<Tab, { title: string; subtitle?: string; showSocials?: boolean }> = {
   services: { title: 'Dylan Monge', subtitle: 'IT Infrastructure Technician', showSocials: true },
   experience: {
-    title: 'Experience',
+    title: 'My Work',
     subtitle: 'Proven in academia and industry. ',
   },
   // personal removed

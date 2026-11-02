@@ -2,7 +2,7 @@ export default function PersonalSection() {
   return (
     <div className="bg-black relative z-10 bg-grid overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-20">
-        <div className="max-w-3xl space-y-6 text-white/70 text-lg leading-relaxed mb-16">
+        <div className="max-w-3xl mx-auto space-y-6 text-white/70 text-lg leading-relaxed mb-16">
           <p>
             I'm impassioned by the ways technology enables us to express our ideas, connect with others, and solve complex problems. My background in computer science has taught me problem solving skills that I use throughout my life.
           </p>
